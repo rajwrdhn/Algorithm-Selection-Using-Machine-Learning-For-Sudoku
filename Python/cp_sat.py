@@ -11,7 +11,7 @@ class Solver_cpsat():
         self.matrx = matrx
         self.N = N
     def solve_sudoku(self, matrx, N):
-        start = datetime.now()
+        #start = datetime.now()
         """Solves the sudoku problem with the CP-SAT solver."""
         # Create the model.
         model = cp_model.CpModel()
@@ -53,16 +53,16 @@ class Solver_cpsat():
                 if initial_grid[i][j]:
                     model.Add(grid[(i, j)] == initial_grid[i][j])
         
-        #start = datetime.now()
+        start = datetime.now()
         # Solve and print out the solution.
         solver = cp_model.CpSolver()
         status = solver.Solve(model)
-
-        if status == cp_model.FEASIBLE or status == cp_model.OPTIMAL:
-            print('solved')							
-            for i in line:
-                print([int(solver.Value(grid[(i, j)])) for j in line])
+        exec_time = datetime.now() - start
+        if status == cp_model.FEASIBLE or status == cp_model.OPTIMAL:						
+            print('solved')
+            #for i in line:
+                #print([int(solver.Value(grid[(i, j)])) for j in line])
         else:
             print('unsolved')
-        exec_time = datetime.now() - start
+        
         return exec_time.total_seconds()
