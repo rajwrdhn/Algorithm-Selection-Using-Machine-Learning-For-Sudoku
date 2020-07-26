@@ -6,7 +6,6 @@ import numpy as np
 import pandas as pd 
 import csv 
 
-
 DATA_BASEPATH = 'benchmark_puzzles/benchmarks5x5'
 OUTPUT_BASEPATH = 'output'
 #A batch program to get features from all sudoku instances

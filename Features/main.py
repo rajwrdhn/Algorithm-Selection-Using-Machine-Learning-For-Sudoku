@@ -14,7 +14,7 @@ OUTPUT_BASEPATH = 'output'
 def load_path():
     colum = ['col1','col2','col3','col4','col5','col6','col7','col8','col9','col10']
     df_add = pd.DataFrame(columns = colum)
-    for k in range(3,6):
+    for k in range(3,10):
         for i in range(0, 105, 5):        
             for j in range(20):
                 sta = 'puzzle' + str(j+1)            
@@ -30,21 +30,24 @@ def call_feature_computation_class(df_np , N, df_add, i):
     if N>0 :
         import compute_features
         model = compute_features.feature_computations(df_np, N)
-        x1 = model.add_numberOfNumbers(df_np, N)
-        x2 = model.add_MeanofPuzzle(df_np,N)
-        x3 = model.add_MedianOfPuzzle(df_np, N)
-        x4 = model.add_ModeOfPuzzle(df_np, N)
-        x5 = model.add_AverageOfPuzzle(df_np, N)
-        x6 = model.add_SumOfNumbers(df_np, N)
-        x7 = model.add_Percentile70(df_np, N)
-        x8 = model.add_Percentile80(df_np, N)
-        x9 = model.add_Percentile55(df_np, N)
-        x10 = model.add_Percentile45(df_np, N)
-        df_add = df_add.append({'col1': x1, 'col2': x2, 'col3': x3, 
-                                            'col4': x4, 'col5': x5, 'col6': x6,
-                                            'col7': x7, 'col8': x8, 'col9': x9, 'col10': x10}, 
-                                            ignore_index = True)
-        load_to_csv(df_add)
+
+        #x1 = model.add_numberOfNumbers()
+        #x2 = model.add_MeanofPuzzle()
+        #x3 = model.add_MedianOfPuzzle()
+        #x4 = model.add_ModeOfPuzzle()
+        #x5 = model.add_AverageOfPuzzle()
+        #x6 = model.add_SumOfNumbers()
+        #x7 = model.add_Percentile70()
+        #x8 = model.add_Percentile80()
+        #x9 = model.add_Percentile55()
+        #x10 = model.add_Percentile45()
+        x11 = model.add_manhattan_distance()
+        #print(x11)
+        #df_add = df_add.append({'col1': x1, 'col2': x2, 'col3': x3, 
+                                            #'col4': x4, 'col5': x5, 'col6': x6,
+                                            #'col7': x7, 'col8': x8, 'col9': x9, 'col10': x10}, 
+                                            #ignore_index = True)
+        #load_to_csv(df_add)
 
 def load_to_csv(df_add):
     df_add.to_csv('features.csv', mode = 'a', header = False)
