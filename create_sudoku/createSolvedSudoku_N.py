@@ -16,7 +16,7 @@ def createSudokuSolved(N):
     for i in range(N):
         print("")
         for j in range(N):
-            print(-1, end="\t")
+            print(-1, end ="\t")
 
 def main():
     parser = argparse.ArgumentParser(description='For creating solved sudoku problems:')
