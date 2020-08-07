@@ -69,7 +69,8 @@ def main():
         import cp_sat
         model = cp_sat.Solver_cpsat(mtrx_np, N)
         time_ms = model.solve_sudoku(mtrx_np, N)
-        print(time_ms * 1000)
+        
+        print(time_ms)
     elif args.algo.upper() in ['PYCO']:
         import pyco_SAT
         out_arr = nparr_to_string(np.zeros((49,49)).astype(np.int))

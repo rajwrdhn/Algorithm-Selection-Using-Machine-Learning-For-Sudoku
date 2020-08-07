@@ -5,6 +5,7 @@ from __future__ import print_function
 from ortools.sat.python import cp_model
 import math
 from datetime import datetime
+import pandas 
 
 class Solver_cpsat():
     def __init__(self, matrx, N):
@@ -58,6 +59,7 @@ class Solver_cpsat():
         solver = cp_model.CpSolver()
         status = solver.Solve(model)
         exec_time = datetime.now() - start
+        
         if status == cp_model.FEASIBLE or status == cp_model.OPTIMAL:						
             print('solved')
             #for i in line:
@@ -66,3 +68,4 @@ class Solver_cpsat():
             print('unsolved')
         
         return exec_time.total_seconds()
+
