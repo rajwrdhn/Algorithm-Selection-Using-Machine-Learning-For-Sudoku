@@ -48,12 +48,7 @@ def main():
     start = time.time()
 
     # call algorithm
-    if args.algo.upper() in ['OR']:
-        import constraint_Programming_OR_SAT
-        model = constraint_Programming_OR_SAT.Solver_or(mtrx_np, N)
-        time_ms = model.solve_sudoku(mtrx_np, N)
-        print(time_ms)
-    elif args.algo.upper() in ['PYCOSAT']:
+    if args.algo.upper() in ['PYCOSAT']:
         import pyco_SAT
         out_arr = nparr_to_string(mtrx_np)
         model = pyco_SAT.Solver_pycosat(out_arr, N)
