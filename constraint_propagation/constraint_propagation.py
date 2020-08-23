@@ -126,4 +126,3 @@ if True:
     constraint_propagate(sudoku_constraints,v1,['A'],prop_singletons)
 
 
-load_sudoku():

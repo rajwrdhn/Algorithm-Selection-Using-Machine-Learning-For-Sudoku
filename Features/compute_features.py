@@ -63,15 +63,8 @@ class feature_computations():
         #p = distance.cityblock(self.df, self.df)
         p = distance.pdist(self.df)
         print(type(p) , p)
-        for x in self.df:
-            for y in enumeration(x):
-
-            #print('x:-' , x)
-        #r = distance.cityblock(self.df, self.df)
-        #print(type(self.df)) 
-        return p
-
-    
+        return p 
+        
     def calculate_points(self):
         li = self.df.tolist()
         return li
