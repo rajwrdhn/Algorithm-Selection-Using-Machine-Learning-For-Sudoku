@@ -41,7 +41,8 @@ def call_feature_computation_class(df_np , N, df_add, i):
         #x8 = model.add_Percentile80()
         #x9 = model.add_Percentile55()
         #x10 = model.add_Percentile45()
-        x11 = model.add_manhattan_distance()
+        #x11 = model.add_manhattan_distance()
+        model.calculate_gcp_features()
         #print(x11)
         #df_add = df_add.append({'col1': x1, 'col2': x2, 'col3': x3, 
                                             #'col4': x4, 'col5': x5, 'col6': x6,

@@ -15,8 +15,8 @@ class feature_computations():
         #print(np.percentile(df_np, 80))
         counter = 0
 
-        for i in range(self.N):
-            for j in range(self.N):
+        for i in range(self.size):
+            for j in range(self.size):
                 if (self.df[i][j] > 0):
                     counter += 1 
             
@@ -59,12 +59,17 @@ class feature_computations():
         return p 
         
     def add_manhattan_distance(self):
-        li = self.calculate_points()
+        #li = self.calculate_points()
         #p = distance.cityblock(self.df, self.df)
         p = distance.pdist(self.df)
-        print(type(p) , p)
+        #print(type(p) , p)
         return p 
         
     def calculate_points(self):
         li = self.df.tolist()
         return li
+
+    def calculate_gcp_features(self):
+        import graphcolorfeatures
+        gcp_model = graphcolorfeatures.GraphColorAsSudoku(self.df,self.size)
+        gcp_model.make_puzzle()
