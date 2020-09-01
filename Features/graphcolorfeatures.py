@@ -6,8 +6,13 @@ class GraphColorAsSudoku():
     def __init__(self, sudoku, size):
         self.sudoku = sudoku
         self.size = size
+        self.board = self.make_puzzle()        
+        self.sudokuGraph = SudokuConnections()
+        self.mappedGrid = self.__getMappedMatrix() # Maps all the ids to the position in the matrix
+    
     def make_puzzle(self):
         return self.sudoku.tolist()
+    
     def InitilizeColorForGraph(self):
         """
             fill the already given colors
