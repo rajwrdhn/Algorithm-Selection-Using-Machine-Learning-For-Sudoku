@@ -57,8 +57,8 @@ class Solver_cpsat():
         start = datetime.now()
         # Solve and print out the solution.
         solver = cp_model.CpSolver()
-        # Sets a time limit of 10 seconds.
-        solver.parameters.max_time_in_seconds = 50000.0
+        # Sets a time limit of in seconds.
+        solver.parameters.max_time_in_seconds = 100000.0
         status = solver.Solve(model)
         exec_time = datetime.now() - start
         
