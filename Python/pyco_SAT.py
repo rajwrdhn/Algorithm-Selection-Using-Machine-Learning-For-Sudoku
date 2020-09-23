@@ -43,15 +43,14 @@ class Solver_pycosat():
             for d in range(N):
                 cnf += list(itertools.combinations(-vars[i,:,d].ravel(), 2))
                 cnf += list(itertools.combinations(-vars[:,i,d].ravel(), 2))
-
+        j = 0 
         # Tranform sudoku board to CNF
         for i, x in enumerate(matrx.split()):
-            z = x.split('.')
-            for j, y in enumerate(z):
-                if y == '.':
-                    continue
-                d = int(y) - 1
-        
+            for y in x.split('.'):
+                d = int(y) - 1                
+                cnf.append([vars[i, j, d]])
+            j += 1
+
         return [list(x) for x in cnf]
     
     def print_solution(self, solution, N):
@@ -65,7 +64,10 @@ class Solver_pycosat():
         
     def pyco_solve(self, cnf, N):
         start = datetime.now()
-        self.print_solution(pycosat.solve(cnf),N)
+        print(pycosat.solve(cnf))
+        #pycosat.solve(cnf)
+        #print(pycosat.solve(cnf))
+        #print(cnf)
         exec_time = datetime.now() - start
         run_time = exec_time.total_seconds()
         return run_time 

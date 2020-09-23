@@ -1,7 +1,6 @@
 """This model implements a sudoku solver."""
 
 from __future__ import print_function
-
 from ortools.sat.python import cp_model
 import math
 from datetime import datetime
@@ -58,7 +57,7 @@ class Solver_cpsat():
         # Solve and print out the solution.
         solver = cp_model.CpSolver()
         # Sets a time limit of in seconds.
-        solver.parameters.max_time_in_seconds = 100000.0
+        solver.parameters.max_time_in_seconds = 600.0
         status = solver.Solve(model)
         exec_time = datetime.now() - start
         
