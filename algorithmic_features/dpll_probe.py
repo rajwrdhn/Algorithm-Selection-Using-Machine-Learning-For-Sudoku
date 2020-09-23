@@ -234,9 +234,9 @@ def BCP(cnf,G,dl):
 
 def DECIDE(cnf,G,dl):
     for i in range(len(cnf)):
-        dec=0 #すでに真偽が決定したファクターかどうか
+        dec=0 
         for j in range(len(cnf[i])):
-            if(cnf[i][j]<0): #負数の場合
+            if(cnf[i][j]<0):
                 cand = abs(cnf[i][j])
                 if(cand in list(G.nodes)):
                     if(G.nodes[cand]['value']==0):
@@ -244,7 +244,7 @@ def DECIDE(cnf,G,dl):
                         break
                 else:
                     target = cnf[i][j]
-            else: #整数の場合
+            else: 
                 cand = cnf[i][j]
                 if(cand in list(G.nodes)):
                     if(G.nodes[cand]['value']==1):
@@ -252,12 +252,12 @@ def DECIDE(cnf,G,dl):
                         break
                 else:
                     target = cnf[i][j]
-        if(dec==0): #真偽が決定していないファクター→targetが存在→割当
+        if(dec==0): 
             break
 
-    if(dec==1): #全てのファクターの真偽が決定している→充足→割当の必要無→return True
+    if(dec==1): 
         return [G,True]
-    else: #割当
+    else: 
         wl = find_max(G, 'w_level')
         if(wl==0):
             wl =1
@@ -269,7 +269,7 @@ def DECIDE(cnf,G,dl):
             name = target
             v = 1
 
-        G.add_node(name, value = v, d_level = dl, w_level = wl) #ノードの追加
+        G.add_node(name, value = v, d_level = dl, w_level = wl)
         return [G,False]
 
 def ANALYZE_CONFLICT(G):
@@ -280,14 +280,14 @@ def BACK_TRACK(G,b_level,cnf):
     dl_lst = find_node(G,'d_level',b_level)
     
     min_wl = find_max(G,'w_level')
-    for i in dl_lst:#w_levelの最小値を探す
+    for i in dl_lst:
         tmp = G.node[i]['w_level']
         if(tmp<min_wl):
             min_wl = tmp
     
-    wl_lst = find_node(G,'w_level',min_wl) #指定されたd_levelを持つノードのうち，最小のw_levelを持つノードのリスト
+    wl_lst = find_node(G,'w_level',min_wl) 
     
-    new_fct = [] #新しいファクターの作成
+    new_fct = [] 
     for i in wl_lst:
         if(G.node[i]['value']==0):
             new_fct.append(i)
@@ -295,10 +295,9 @@ def BACK_TRACK(G,b_level,cnf):
             new_fct.append(-1*i)
 
     new_fact = sorted(new_fct,key=abs)
-    cnf.append(new_fact) #新しいファクターの追加
+    cnf.append(new_fact) 
 
-    #指定されたd_levelを持つノードの全削除
-    G.remove_nodes_from(dl_list)
+    G.remove_nodes_from(dl_lst)
 
     return G
 
