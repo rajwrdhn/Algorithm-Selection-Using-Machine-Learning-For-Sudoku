@@ -69,17 +69,17 @@ def solve(grid, size):
     
     dpll = run_dpll(clauses)
     
-    sol = set(pycosat.solve(clauses))
+    #sol = set(pycosat.solve(clauses))
 
-    def read_cell(i, j):
+    #def read_cell(i, j):
         # return the digit of cell i, j according to the solution
-        for d in range(1, size+1):
-            if v(i, j, d, size) in sol:
-                return d
+        #for d in range(1, size+1):
+            #if v(i, j, d, size) in sol:
+                #return d
 
-    for i in range(1, size +1):
-        for j in range(1, size+1):
-            grid[i - 1][j - 1] = read_cell(i, j)
+    #for i in range(1, size +1):
+        #for j in range(1, size+1):
+            #grid[i - 1][j - 1] = read_cell(i, j)
 
 def run_time_limit(x,y):
     x = time.time()
@@ -91,6 +91,7 @@ def run_time_limit(x,y):
     else:
         print('here',y-x)
         #stop the program
+    return y-x
     
 
 def run_dpll(clauses):
@@ -110,7 +111,7 @@ def run_dpll(clauses):
             node0 = find_node(Grph,'value',0)
             node0 = [-1*i for i in node0]
             ans = sorted(node1+node0,key= abs)
-            print('Staisfiable')
+            print('Satisfiable')
             return ans
         else:
             while True:
@@ -126,12 +127,6 @@ def run_dpll(clauses):
                     d_level = b_level-1
                     Grph = BACK_TRACK(Grph, b_level, clauses)
 
-
-
-    print(clauses)
-    run_time_limit()
-    #run for 2 seconds
-    #run for 2 loops or 1 loop
 
 def find_node(G, attr, value):
     result = []
@@ -169,6 +164,7 @@ def BCP(cnf,G,dl):
     while fin==0: 
         fin = 1
         G_old = nx.DiGraph(G) 
+
         for i in range(len(cnf)):
             dec = 0 
             cnt = 0 
@@ -229,7 +225,6 @@ def BCP(cnf,G,dl):
                                 G.add_edge(k,name,factor=fct)
                     else: 
                         return [G,True]
-
     return [G,False]
 
 def DECIDE(cnf,G,dl):
@@ -304,7 +299,7 @@ def BACK_TRACK(G,b_level,cnf):
 if __name__ == '__main__':
     from pprint import pprint
 
-    # hard Sudoku problem, see Fig. 3 in paper by Weber
+    # hard Sudoku problem,
     hard = [[3, 2, 0, 0],
             [0, 0, 0, 0],
             [1, 3, 4, 0],
