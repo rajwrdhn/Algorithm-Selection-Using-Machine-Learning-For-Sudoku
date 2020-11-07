@@ -43,7 +43,7 @@ def encode_sudoku_to_numpy(df , N):
 
 def main():
     parser = argparse.ArgumentParser(description='For running sudoku problems:')
-    parser.add_argument('sudoku_instance', nargs='?', default='sudoku_1', help='The name of the sudoku instance. A corresponding .txt file must be in the sud_data/ folder.')
+    parser.add_argument('sudoku_instance', nargs='?', default='', help='The name of the sudoku instance. A corresponding .txt file must be in the sud_data/ folder.')
     parser.add_argument('algo', nargs='?', default='GET', help='Get the Features.')
 
     args = parser.parse_args()

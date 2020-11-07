@@ -82,9 +82,6 @@ def solve(grid, size):
             #grid[i - 1][j - 1] = read_cell(i, j)
 
 def run_time_limit(x,y):
-    x = time.time()
-
-    y = time.time()
 
     if (y-x >= 2):
         print(y-x)
