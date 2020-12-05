@@ -123,6 +123,7 @@ sudoku_constraints.extend(column_constraint(v2))
 sudoku_constraints.extend(sub_grid_constraint(v3))
 
 if True:
+    
     constraint_propagate(sudoku_constraints,v1,['A'],prop_singletons)
 
 
