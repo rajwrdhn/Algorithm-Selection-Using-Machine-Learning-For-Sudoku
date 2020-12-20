@@ -4,7 +4,7 @@ class GraphColorAsSudoku():
         of the sudoku by transforming each puzzle into a 
         graph colorin problem"""
     def __init__(self, sudoku, size):
-        self.sudoku = sudoku
+        self.sudoku = sudoku # see this
         self.size = size
         self.board = self.make_puzzle()        
         self.sudokuGraph = SudokuConnections()
