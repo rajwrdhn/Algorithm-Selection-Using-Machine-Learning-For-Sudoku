@@ -66,7 +66,7 @@ def constraint_propagate(sudoku_constraints, domains, agenda, propagation_style)
 
                 affected_vars = [x for x in iter(csp['domains']) 
                                  if csp['domains'][x] != domains_before[x] 
-                                 and should_propagate(csp['domains'][x])]
+                                 and should_propagate(csp['domains'][x])] #Method not defined Please define it. 
                 propagation_queue.extend(affected_vars)
                     
                 any_empty_domains = not all(csp['domains'].values())
