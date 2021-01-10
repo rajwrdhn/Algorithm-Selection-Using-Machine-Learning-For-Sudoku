@@ -1,4 +1,4 @@
-#!usr/var/python
+#!usr/var/python3
 import os
 import numpy as np
 import pandas as pd 
