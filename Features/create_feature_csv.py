@@ -1,4 +1,4 @@
-#!usr/var/python
+#!usr/var/python3
 import csv
 import pandas as pd 
 import os

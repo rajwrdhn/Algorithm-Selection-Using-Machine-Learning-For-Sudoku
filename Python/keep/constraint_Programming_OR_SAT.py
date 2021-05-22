@@ -46,7 +46,7 @@ class Solver_or():
         status = solver.Solve(model)
         exec_time = datetime.now() - start
         print(solver.StatusName(status))
-        result = np.zeros((N, N)).astype(np.int)
+        result = np.zeros((N, N)).astype(int)
         print(cp_model.INFEASIBLE)
         #see if solved
         if status == cp_model.FEASIBLE or status == cp_model.OPTIMAL:

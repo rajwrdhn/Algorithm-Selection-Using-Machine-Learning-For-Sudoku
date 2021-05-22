@@ -1,4 +1,4 @@
-class Vertex():
+class Vertex :
     def __init__(self, idx, data = 0):
         self.id = idx 
         self.data = data

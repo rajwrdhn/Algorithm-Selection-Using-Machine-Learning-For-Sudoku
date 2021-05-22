@@ -1,6 +1,6 @@
 from graph import Graph
 
-class SudokuConnections : 
+class SudokuConnections() : 
     def __init__(self) :  # constructor
 
         self.graph = Graph() # Graph Object

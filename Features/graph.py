@@ -1,5 +1,5 @@
-import node
-class Graph():
+from node import Vertex
+class Graph:
     """Graph class for the conversion"""
     totalV = 0 # total vertices in the graph
     
@@ -16,7 +16,7 @@ class Graph():
             return None
         
         Graph.totalV += 1
-        nod = node.Vertex(idx=idx)
+        nod = Vertex(idx=idx)
         self.allNodes[idx] = nod
         return nod
 
@@ -24,7 +24,7 @@ class Graph():
         """ set node data acc to idx """
         if idx in self.allNodes : 
             node = self.allNodes[idx]
-            node.setData(data)
+            self.setData(data)
         else : 
             print("No ID to add the data.")
 
@@ -57,7 +57,7 @@ class Graph():
         for idx in self.allNodes :
             node =  self.allNodes[idx]
             for con in node.getConnections() : 
-                print(node.getID(), " --> ", 
+                print(self.allNodes[idx].getID(), " --> ", 
                 self.allNodes[con].getID())
     
     # getter
@@ -120,7 +120,7 @@ class Graph():
                 idx = self.allNodes[i].getID()
                 if visited[idx]  == False : 
                     queue.append(idx)
-                    visited = self.__setVisitedTrue(Nodevisited=visited,
+                    visited = self.__setVisitedTrue(visited=visited,
                      node_id=idx)
         
 

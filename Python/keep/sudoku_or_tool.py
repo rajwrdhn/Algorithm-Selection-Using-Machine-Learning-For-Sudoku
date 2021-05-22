@@ -46,7 +46,7 @@ class Solver_or():
         exec_time = datetime.now() - start
         status = solver.Solve(model)
 
-        result = np.zeros((N, N)).astype(np.int)
+        result = np.zeros((N, N)).astype(int)
 
         if status == cp_model.FEASIBLE:
             for i in range(N):

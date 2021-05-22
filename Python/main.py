@@ -27,7 +27,7 @@ def encode_sudoku_to_numpy(df , N):
     s = [[]]
     for i in range(0, N):
         s = np.append(s, np.char.split(a[i][0],sep = "\t")) 
-    k = np.zeros((N,N)).astype(np.int)
+    k = np.zeros((N,N)).astype(int)
     for j in range(0, N):
         for i in range(0,N):
             x = int(s[j][i])
@@ -68,7 +68,7 @@ def main():
         print(time_ms)
     elif args.algo.upper() in ['PYCO']:
         import pyco_SAT
-        out_arr = nparr_to_string(np.zeros((49,49)).astype(np.int))
+        out_arr = nparr_to_string(np.zeros((49,49)).astype(int))
         model = pyco_SAT.Solver_pycosat(out_arr, 49)
         cnf = model.solve_sudoku(out_arr, 49)
         time_ms = model.pyco_solve(cnf, 49)

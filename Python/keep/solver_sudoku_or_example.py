@@ -56,7 +56,7 @@ def solve_with_ip(grid: np.ndarray) -> (np.ndarray, float):
     statusdict = {0:'OPTIMAL', 1:'FEASIBLE', 2:'INFEASIBLE', 3:'UNBOUNDED', 
                   4:'ABNORMAL', 5:'MODEL_INVALID', 6:'NOT_SOLVED'}
     
-    result = np.zeros((grid_size, grid_size)).astype(np.int)
+    result = np.zeros((grid_size, grid_size)).astype(int)
     if status == pywraplp.Solver.OPTIMAL:
         for i in range(grid_size):
             for j in range(grid_size):

@@ -29,7 +29,7 @@ def encode_sudoku_to_numpy(df , N):
     s = [[]]
     for i in range(0, N):
         s = np.append(s, np.char.split(a[i][0],sep = "\t")) 
-    k = np.zeros((N,N)).astype(np.int)
+    k = np.zeros((N,N)).astype(int)
     for j in range(0, N):
         for i in range(0,N):
             x = int(s[j][i])
@@ -57,7 +57,7 @@ def main():
         #print(out_arr)
  
     else:
-        print("Unknown Algorithm or tool. Exit")
+        print("Unknown Algorithm or tool. Exit!!")
         return
     # end time
     end = time.time()

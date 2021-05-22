@@ -3,6 +3,7 @@ import math
 import pycosat
 import networkx as nx
 import time
+#uc = 0 
 def v(i,j,d, size):
     """
     i, j -> cell number
@@ -50,7 +51,7 @@ def clauses_sudoku(size):
 
 def solve(grid, size):
     """
-    solve a Sudoku grid inplace
+    solve a Sudoku grid inplace 
     """
     clauses = clauses_sudoku(size)
     #print(clauses)
@@ -66,8 +67,24 @@ def solve(grid, size):
                 clauses.append([v(i, j, d, size)])
     #print(clauses)
     # solve the SAT problem
+    print("clauses",clauses)
     
     dpll = run_dpll(clauses)
+    #print("dpll",dpll)
+    countminus = 0
+    countplus = 0 
+    for i in dpll:
+        if i<0:
+            countminus +=1
+        else:
+            countplus +=1
+    
+    print(countplus/countminus)
+    print()
+
+    #print(dpll)
+    
+
     
     #sol = set(pycosat.solve(clauses))
 
@@ -133,7 +150,7 @@ def find_node(G, attr, value):
         if (v == value):
             result.append(key)
         
-    
+    #print(result)
     return result
 
 def find_max(G, attr): 
@@ -192,6 +209,8 @@ def BCP(cnf,G,dl):
                 return [G,True]
             
             if(dec==0 and cnt==1): #unit-clause
+                #uc = uc +1
+                #print("uc")
                 fin = 0
 
                 wl_max = 0
@@ -303,3 +322,4 @@ if __name__ == '__main__':
             [0, 0, 0, 1]]
     solve(hard, 4)
     #pprint(hard)
+    #pprint(uc)

@@ -1,4 +1,4 @@
-from cspbase import *
+import cspbase
 import itertools
 import math
 
@@ -9,7 +9,7 @@ def enforce_general_AC(constraint_list):
         Q.append(n)
     
     while len(Q) > 0:
-        C = Q.pop(0)
+        C = cspbase.Q.pop(0)
 
         for V in C.scope:
             for d in V.cur_domain():
@@ -39,7 +39,7 @@ def sudoku_enforce_gac_model_1(sudoku_puzzle, size):
     for r in variables:
         for c1 in r:
             for c2 in r[r.index(c1) + 1:]:
-                cons = Constraint("BIN-ROW: (R" + str(variables.index(r)) + \
+                cons = cspbase.Constraint("BIN-ROW: (R" + str(variables.index(r)) + \
                                   ", C" + str(r.index(c1)) +") and (R" + str(variables.index(r)) + \
                                   ", C" + str(r.index(c2)) + ")", [c1, c2])
                 cons.add_satisfying_tuples(sudoku_binary_permutations(c1, c2))
@@ -50,7 +50,7 @@ def sudoku_enforce_gac_model_1(sudoku_puzzle, size):
         for c1 in r:
             for c2 in r[r.index(c1) + 1: ]:
                 if (c1, c2) not in checker:
-                    cons = Constraint("BIN-COL: (R" + str(cols.index(r)) + \
+                    cons = cspbase.Constraint("BIN-COL: (R" + str(cols.index(r)) + \
                                   ", C" + str(r.index(c1)) +") and (R" + str(cols.index(r)) + \
                                   ", C" + str(r.index(c2)) + ")", [c1, c2])
                     cons.add_satisfying_tuples(sudoku_binary_permutations(c1, c2))
@@ -61,7 +61,7 @@ def sudoku_enforce_gac_model_1(sudoku_puzzle, size):
         for c1 in r:
             for c2 in r[r.index(c1) +1:]:
                 if (c1,c2) not in checker:
-                    cons = Constraint("BIN-BOX: (R" + str(subgrids.index(r)) + \
+                    cons = cspbase.Constraint("BIN-BOX: (R" + str(subgrids.index(r)) + \
                                   ", C" + str(r.index(c1)) +") and (R" + str(subgrids.index(r)) + \
                                   ", C" + str(r.index(c2)) + ")", [c1, c2]) 
                     cons.add_satisfying_tuples(sudoku_binary_permutations(c1, c2))

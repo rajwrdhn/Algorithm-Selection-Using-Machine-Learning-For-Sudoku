@@ -1,4 +1,4 @@
-
+import sudokuConnections
 class GraphColorAsSudoku():
     """In this we will compute the graphical features 
         of the sudoku by transforming each puzzle into a 
@@ -7,8 +7,8 @@ class GraphColorAsSudoku():
         self.sudoku = sudoku # see this
         self.size = size
         self.board = self.make_puzzle()        
-        self.sudokuGraph = SudokuConnections()
-        self.mappedGrid = self.__getMappedMatrix() # Maps all the ids to the position in the matrix
+        self.sudokuGraph = sudokuConnections.SudokuConnections()
+        #self.mappedGrid = self.__getGridMatrix()  # Maps all the ids to the position in the matrix
     
     def make_puzzle(self):
         return self.sudoku.tolist()
@@ -21,7 +21,7 @@ class GraphColorAsSudoku():
         given = [] # list of all the ids whos value is already given. Thus cannot be changed
         for row in range(len(self.board)) : 
             for col in range(len(self.board[row])) : 
-                if self.make_puzzle()[][] != 0 : 
+                if self.make_puzzle()!= 0 : 
                     #first get the idx of the position
                     idx = self.mappedGrid[row][col]
                     #update the color
