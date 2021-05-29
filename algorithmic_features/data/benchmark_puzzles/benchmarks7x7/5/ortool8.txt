@@ -1,2 +1,8 @@
 solved
 0.035431
+solved
+0.030535
+solved
+0.031814
+solved
+0.030523

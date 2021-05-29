@@ -2,3 +2,9 @@ solved
 0.004691
 solved
 0.003819
+solved
+0.003857
+solved
+0.003942
+solved
+0.004906

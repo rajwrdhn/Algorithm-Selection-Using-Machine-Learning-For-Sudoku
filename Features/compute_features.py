@@ -7,12 +7,14 @@ from scipy import stats
 import scipy
 from scipy.spatial import distance
 
+
 class feature_computations():
     def __init__(self, df, N, name_l):
         self.df = df
         self.size = N
         self.list_deepLearning: list = []
         self.name_ = name_l
+        self.order = int(math.sqrt(N))
 
     def sizeofpuzzle(self):
         return self.size
@@ -20,9 +22,14 @@ class feature_computations():
     def orderofpuzzle(self):
         a = math.sqrt(self.size)
         return a
+    
+    def sumof(self):
+        for i in range(self.size):
+            i = i +1
         
-    def add_percentOfNumbers(self):
-        #print(np.percentile(df_np, 80))
+        return i
+        
+    def percentofnumbers(self):
         counter = 0
 
         for i in range(self.size):
@@ -32,113 +39,295 @@ class feature_computations():
         if (counter >0 ):
             per = counter * 100/ (self.size* self.size)
         else:
-            per = 0
-        #print(per)  
+            per = 0  
         return per
     
-    def add_MeanofPuzzle(self):
+    def meanofpuzzle(self):
         a = np.mean(self.df)
         return a 
     
-    def add_MedianOfPuzzle(self):        
+    def medianofpuzzle(self):        
         m = np.median(self.df)
         return m
     
-    def add_ModeOfPuzzle(self):
+    def modeofpuzzle(self):
         a = self.df.ravel()
         m = stats.mode(a, axis =None)        
         return m
 
-    def add_AverageOfPuzzle(self):
+    def averageofpuzzle(self):
         a = np.average(self.df)
         return a 
 
-    def add_SumOfNumbers(self):
+    def sumofnumbers(self):
         s = np.sum(self.df)
         return s
 
-    def add_Percentile(self):
+    def percentilepuzzle(self):
         p = np.percentile(self.df, 80)
         return p
     
-    def add_NumberOfEmptyRows(self):
-        #print(self.df)
-        #count = 0 
-        #for i in range(self.size):
-        a = np.size(np.where(~self.df.any(axis=1))[0])
-        #for i in range(np.where(~self.df.any(axis=1))[0]):
-            #i +=1
-        return a #count / (self.size )
-    
-    def add_NumberOfEmptyColumns(self):
-        a = np.size(np.where(~self.df.any(axis=0))[0])
-        return a
-    
-    def add_NumberOfEmptySubBlocks(self):
-        return self.df
-    
-    def add_manhattan_distance(self):
-        #li = self.calculate_points()
+    def manhattandistance(self):
         k = np.zeros((self.size,self.size)).astype(int).ravel()
         a = self.df.ravel()
         b = np.where(a > 0.5, 1, 0)
         p = distance.cityblock(b, k)
-        #p = distance.pdist(self.df)
-        #print(type(p) , p)
         return p 
         
     def calculate_points(self):
         li = self.df.tolist()
         return li
     
+    #get subgrids helper
+    def getsubgrids(self):
+        d = self.df
+        subgrids = []
+        for box_i in range(self.order):
+            for box_j in range(self.order):
+                subgrid = []
+                for i in range(self.order):
+                    for j in range(self.order):
+                        subgrid.append(d[self.order*box_i + i][self.order*box_j + j])
+                subgrids.append(subgrid)
+        return subgrids 
+    
+    def sizeofsmallestsubgrid(self):        
+        p = self.getsubgrids()
+        mina = self.size
+        for x in p:
+            xd = sum(i > 0 for i in x)
+            if (xd < mina):
+                mina = xd
+        return mina
+
+    def sizeoflargestsubgrid(self):        
+        p = self.getsubgrids()
+        maxa = 0
+        for x in p:
+            xd = sum(i > 0 for i in x)
+            if (xd > maxa):
+                maxa = xd
+        return maxa
+    
+    def minmaxsubgrid(self):
+        p1 = self.sizeofsmallestsubgrid()
+        p2 = self.sizeoflargestsubgrid()
+
+        return p1/p2 
+    
+    def minsdsubgrid(self):
+        p1 = self.sizeofsmallestsubgrid()
+        p2 = self.size
+
+        return p1/p2
+
+    def numberofsubgridsfilledcompletely(self):
+        p = self.getsubgrids()
+        count = 0
+        for x in p:
+            xd = [i for i in x if i > 0]
+            if (len(xd) == self.size):
+                count += 1
+        return count
+    
+    def numberofsubgridsempty(self):
+        p = self.getsubgrids()
+        count = 0
+        for x in p:
+            xd = [i for i in x if i==0]
+            if (len(xd)==self.size):
+                count += 1
+        return count 
+
     def sizeofsmallestrow(self):
-        return 0 
+        p = self.df.tolist()
+        mina = self.size
+        for x in p:
+            xd = sum(i > 0 for i in x)
+            if (xd < mina):
+                mina = xd
+        return mina
     
     def sizeoflargestrow(self):
-        return 0 
+        p = self.df.tolist()
+        maxa = 0
+        for x in p:
+            xd = sum(i > 0 for i in x)
+            if (xd > maxa):
+                maxa = xd
+        return maxa 
+    
+    def minmaxrow(self):
+        p1 = self.sizeofsmallestrow()
+        p2 = self.sizeoflargestrow()
+
+        return p1/p2 
+    
+    def minsdrow(self):
+        p1 = self.sizeofsmallestrow()
+        p2 = self.size
+
+        return p1/p2    
     
     def sizeofsmallestcolumn(self):
-        return 0
+        #do same like row after transpose
+        p = self.df.transpose().tolist()
+        mina = self.size
+        for x in p:
+            xd = sum(i > 0 for i in x)
+            if (xd < mina):
+                mina = xd
+        return mina
     
     def sizeoflargestcolumn(self):
-        return 0
+        #do same like row after transpose
+        p = self.df.transpose().tolist()
+        maxa = 0
+        for x in p:
+            xd = sum(i > 0 for i in x)
+            if (xd > maxa):
+                maxa = xd
+        return maxa
+
+    def minsdcolumn(self):
+        p1 = self.sizeofsmallestcolumn()
+        p2 = self.size
+
+        return p1/p2
     
-    def numberofsquares(self):
-        return 0 
+    def minmaxcolumn(self):
+        p1 = self.sizeofsmallestcolumn()
+        p2 = self.sizeoflargestcolumn()
+
+        return p1/p2 
     
-    def numberofrowswith1identicalnumber(self):
-        return 0
-    
-    def numberofrowswith2identicalnumber(self):
-        return 0
-    
-    def numberofcolumnswith1identicalnumber(self):
-        return 0
-    
-    def numberofcolumnswith2identicalnumber(self):
-        return 0
+    def diagonalmatrix(self):
+        d = self.df
+        count = 0 
+        for i in range(self.size):
+            if (d[i][i] > 0):
+                count = count+ 1 
+        return count
     
     def numberofcolumnsfilledcompletely(self):
-        return 0 
+        p = self.df.transpose().tolist()
+        count = 0
+        for x in p:
+            xd = [i for i in x if i > 0]
+            if (len(xd) == self.size):
+                count += 1
+        return count
     
     def numberofrowsfilledcompletely(self):
-        return 0
+        p = self.df.tolist()
+        count = 0
+        for x in p:
+            xd = [i for i in x if i > 0]
+            if (len(xd) == self.size):
+                count += 1
+
+        return count
     
-    def numberofnumbersindiagonal(self):
-        return 0
+    def numberofrowsempty(self):
+        p = self.df.tolist()
+        count = 0
+        for x in p:
+            xd = [i for i in x if i == 0]
+            if (len(xd) == self.size):
+                count += 1
+
+        return count
     
-    # transpose of a sudoku and diagonals 
+    def numberofcolumnsempty(self):
+        p = self.df.transpose().tolist()
+        count = 0
+        for x in p:
+            xd = [i for i in x if i == 0]
+            if (len(xd) == self.size):
+                count += 1
+        return count
+    
+    def totalsumofnumbers(self): #standard deviation from sum, sum and total sum
+        a = self.df.sum()
+        su = 0
+        for i in range(self.size):
+            for j in range(1, (self.size +1)):
+                su = su + j
+
+        sd = a/su #standard deviation
+        return a, sd
+
+    def leastsubgridsum(self):
+        a = self.getsubgrids()
+        su = []
+        for x in a:
+            su.append(sum(x))    
+        return min(su)
+
+    def highestsubgridsum(self):
+        a = self.getsubgrids()
+        su = []
+        for x in a:
+            su.append(sum(x))
+        return max(su)
+    
+    def leasthighestsubgrid(self):
+        
+
+    
+    
+    def leastrowsum(self):
+        a = self.df.tolist()
+        su = [] 
+        for x in a:
+            su.append(sum(x))
+        
+        return min(su)
+
+    def highestrowsum(self):
+        a = self.df.tolist()
+        su = [] 
+        for x in a:
+            su.append(sum(x))
+        return max(su)
+    
+    def highestcolumnsum(self):        
+        a = self.df.transpose().tolist()
+        su = [] 
+        for x in a:
+            su.append(sum(x))
+        return max(su)
+
+    
+    def leastcolumnsum(self):        
+        a = self.df.transpose().tolist()
+        su = [] 
+        for x in a:
+            su.append(sum(x))
+        return min(su)
+
+    def highestoccurrenceofnumber(self):
+        a = self.df
+        s = a[a>0]
+        #print(s.tolist())
+
+        t = np.bincount(s)
+        #print(t)
+        return np.argmax(t)
+    
+    #TODO: only one is being presented, not 2, same above
+    def lowestoccurrenceofnumber(self):
+        a = self.df
+        s = a[a>0].tolist()
+        return min(s, key=s.count)
 
     def calculate_gcp_features(self):
         import graphcolorfeatures
         gcp_model = graphcolorfeatures.GraphColorAsSudoku(self.df,self.size)
         gcp_model.make_puzzle()
-        #print(gcp_model.make_puzzle())
         
 
     def deeplearning1(self):
-        #print(self.df)
-        #counter = 0
         self.list_deepLearning.append(self.name_)
         for i in range(self.size):
             for j in range(self.size):
@@ -151,8 +340,6 @@ class feature_computations():
         return self.list_deepLearning
     
     def deeplearning2(self):
-        #print(self.df)
-        #counter = 0
         self.list_deepLearning.append(self.name_)
         for i in range(self.size):
             for j in range(self.size):

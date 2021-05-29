@@ -2,3 +2,7 @@ unsolved
 100.010658
 solved
 1433.770582
+solved
+709.4628
+solved
+703.688747

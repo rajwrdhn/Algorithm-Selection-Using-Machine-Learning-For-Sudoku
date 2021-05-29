@@ -6,3 +6,7 @@ solved
 0.017973
 solved
 0.017397
+solved
+0.018848
+solved
+0.017718

@@ -6,3 +6,5 @@ solved
 3.082698
 solved
 2.999555
+solved
+3.415766

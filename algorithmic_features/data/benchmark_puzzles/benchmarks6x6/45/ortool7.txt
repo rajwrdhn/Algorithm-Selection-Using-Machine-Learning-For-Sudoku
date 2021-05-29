@@ -2,3 +2,7 @@ unsolved
 100.011549
 solved
 820.974512
+solved
+708.367214
+solved
+731.019626

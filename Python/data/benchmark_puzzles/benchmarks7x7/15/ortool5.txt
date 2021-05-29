@@ -2,3 +2,7 @@ solved
 0.042754
 solved
 0.033191
+solved
+0.035968
+solved
+0.033247
