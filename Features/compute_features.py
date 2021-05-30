@@ -113,13 +113,17 @@ class feature_computations():
         p1 = self.sizeofsmallestsubgrid()
         p2 = self.sizeoflargestsubgrid()
 
-        return p1/p2 
+        if (p1 ==0 or p2 ==0):
+            return 0
+        else: return p1/p2
     
     def minsdsubgrid(self):
         p1 = self.sizeofsmallestsubgrid()
         p2 = self.size
 
-        return p1/p2
+        if (p1 ==0 or p2 ==0):
+            return 0
+        else: return p1/p2
 
     def numberofsubgridsfilledcompletely(self):
         p = self.getsubgrids()
@@ -161,13 +165,17 @@ class feature_computations():
         p1 = self.sizeofsmallestrow()
         p2 = self.sizeoflargestrow()
 
-        return p1/p2 
+        if (p1 ==0 or p2 ==0):
+            return 0
+        else: return p1/p2 
     
     def minsdrow(self):
         p1 = self.sizeofsmallestrow()
         p2 = self.size
 
-        return p1/p2    
+        if (p1 ==0 or p2 ==0):
+            return 0
+        else: return p1/p2   
     
     def sizeofsmallestcolumn(self):
         #do same like row after transpose
@@ -193,13 +201,17 @@ class feature_computations():
         p1 = self.sizeofsmallestcolumn()
         p2 = self.size
 
-        return p1/p2
+        if (p1 ==0 or p2 ==0):
+            return 0
+        else: return p1/p2
     
     def minmaxcolumn(self):
         p1 = self.sizeofsmallestcolumn()
         p2 = self.sizeoflargestcolumn()
 
-        return p1/p2 
+        if (p1 ==0 or p2 ==0):
+            return 0
+        else: return p1/p2
     
     def diagonalmatrix(self):
         d = self.df
@@ -275,18 +287,24 @@ class feature_computations():
         p1 = self.leastsubgridsum()
         p2 = self.highestsubgridsum()
 
-        return p1/p2 
+        if (p1 ==0 or p2 ==0):
+            return 0
+        else: return p1/p2
     
     def leastmaxsubgrid(self):
         p1 = self.leastsubgridsum()
         p2 = self.sumof()
-        return p1/p2 
+        if (p1 ==0 or p2 ==0):
+            return 0
+        else: return p1/p2 
     
     def highestmaxsubgrid(self):
         p1 = self.sumof()
         p2 = self.highestsubgridsum()
 
-        return p2/p1 
+        if (p1 ==0 or p2 ==0):
+            return 0
+        else: return p2/p1
 
     def leastrowsum(self):
         a = self.df.tolist()
@@ -307,7 +325,9 @@ class feature_computations():
         p1 = self.leastrowsum()
         p2 = self.highestrowsum()
 
-        return p1/p2 
+        if (p1 ==0 or p2 ==0):
+            return 0
+        else: return p1/p2
     
     def leastmaxrow(self):
         p1 = self.leastrowsum()
@@ -318,7 +338,9 @@ class feature_computations():
         p1 = self.sumof()
         p2 = self.highestrowsum()
 
-        return p2/p1 
+        if (p1 ==0 or p2 ==0):
+            return 0
+        else: return p2/p1
     
     def highestcolumnsum(self):        
         a = self.df.transpose().tolist()
@@ -339,18 +361,24 @@ class feature_computations():
         p1 = self.leastcolumnsum()
         p2 = self.highestcolumnsum()
 
-        return p1/p2 
+        if (p1 ==0 or p2 ==0):
+            return 0
+        else: return p1/p2
 
     def leastmaxcolumn(self):
         p1 = self.leastcolumnsum()
         p2 = self.sumof()
-        return p1/p2 
+        if (p1 ==0 or p2 ==0):
+            return 0
+        else: return p1/p2
     
     def highestmaxcolumn(self):
         p1 = self.sumof()
         p2 = self.highestcolumnsum()
 
-        return p2/p1 
+        if (p1 ==0 or p2 ==0):
+            return 0
+        else: return p2/p1
 
     def highestoccurrenceofnumber(self):
         a = self.df
@@ -359,13 +387,17 @@ class feature_computations():
 
         t = np.bincount(s)
         #print(t)
-        return np.argmax(t)
+        if (t.size):
+            return np.argmax(t)
+        else: return 0
     
     #TODO: only one is being presented, not 2, same above
     def lowestoccurrenceofnumber(self):
         a = self.df
         s = a[a>0].tolist()
-        return min(s, key=s.count)
+        if len(s):
+            return min(s, key=s.count)
+        else: return 0
 
     def calculate_gcp_features(self):
         import graphcolorfeatures
@@ -391,3 +423,4 @@ class feature_computations():
             for j in range(self.size):
                 self.list_deepLearning.append(self.df[i][j])
         return self.list_deepLearning
+    

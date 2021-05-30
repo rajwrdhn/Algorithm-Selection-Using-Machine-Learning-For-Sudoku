@@ -11,9 +11,9 @@ OUTPUT_BASEPATH = 'output'
 
 #Loads the puzzles from the dataset
 def load_path():
-    for k in range(3,4):
-        for i in range(45, 50, 5):        
-            for j in range(1,2):
+    for k in range(3,10):
+        for i in range(0, 105, 5):        
+            for j in range(1,21):
                 sta = 'puzzle' + str(j)            
                 read_sudoku = pd.read_csv(os.path.join(DATA_BASEPATH,'benchmarks'+str(k)+'x'+str(k),str(i),sta +'.txt'), 'r')
                 df = read_sudoku.iloc[1:, :]
@@ -24,20 +24,18 @@ def load_path():
     return df_np, N 
 
 def call_feature_computation_class(df_np , N,  j,k, i):
-    #todays_date = datetime.datetime.now().date()
-    colum = ['col1','col2','col3','col4','col5','col6','col7','col8', 'col9', 'col10', ]
-    df_add = pd.DataFrame(columns=colum)
+    #colum = ['col1','col2','col3','col4','col5','col6','col7','col8', 'col9', 'col10', ]
+    df_add = pd.DataFrame()
     if N>0 :
         import compute_features
-        import convert_to_matrix
         model = compute_features.feature_computations(df_np, N, "benchmark_puzzles/benchmarks%dx%d/%d/puzzle%d.txt" %(k,k,i,j))        
         name_puzzle = "benchmark_puzzles/benchmarks%dx%d/%d/puzzle%d.txt" %(k,k,i,j)
         size_puzzle = model.sizeofpuzzle()
         order_puzzle = model.orderofpuzzle()
         median_puzzle = model.medianofpuzzle()
-        mode_puzzle = model.modeofpuzzle()
+        #mode_puzzle = model.modeofpuzzle()
         mean_puzzle = model.meanofpuzzle()
-        total_sum = model.sumofnumbers()        
+        #total_sum = model.sumofnumbers()        
         percent_puzzle = model.percentofnumbers()
         manhattan_puzzle = model.manhattandistance()
         smallest_row = model.sizeofsmallestrow()
@@ -79,54 +77,54 @@ def call_feature_computation_class(df_np , N,  j,k, i):
         puzzle_diagonal = model.diagonalmatrix()
 
         
-        df_add = df_add.append({ name_puzzle, size_puzzle,order_puzzle,
-            median_puzzle,
-            mode_puzzle,
-            mean_puzzle, 
-        total_sum,
-        percent_puzzle,
-        smallest_row,
-        largest_row,
-        smallest_column,
-        largest_column,
-        smallest_subgrid,
-        largest_subgrid,
-        minmax_subgrid,
-        minmax_row,
-        minmax_column,
-        min_sd_subgrid,
-        min_sd_row,
-        min_sd_column,
-        subgrids_complete,
-        subgrids_empty,
-        row_complete,
-        row_empty,
-        column_complete,
-        column_empty,
-        sum_puzzle, sd_puzzle,
-        least_subgrid_sum,
-        highest_subgrid_sum,
-        least_highest_subgrid,
-        least_max_subgrid,
-        highest_max_subgrid,
-        least_row_sum,
-        highest_row_sum,
-        least_highest_row,
-        least_max_row,
-        highest_max_row,
-        highest_column_sum,     
-        least_column_sum,       
-        least_highest_column,
-        least_max_column,
-        highest_max_column,
-        highest_occ_puzzle,
-        lowest_occ_puzzle,
-        puzzle_diagonal},ignore_index = True)
-        print(df_add)
-        #load_to_csv(df_add)
+        df_add = df_add.append({ 'name_puzzle' :name_puzzle, 'size_puzzle':size_puzzle,'order_puzzle':order_puzzle,
+            'median_puzzle':median_puzzle,
+            #'mode_puzzle':mode_puzzle,
+            'mean_puzzle':mean_puzzle, 
+            #'total_sum':total_sum,
+            'percent_puzzle':percent_puzzle,
+            'smallest_row':smallest_row,
+            'largest_row':largest_row,
+            'smallest_column':smallest_column,
+            'largest_column':largest_column,
+            'smallest_subgrid':smallest_subgrid,
+            'largest_subgrid':largest_subgrid,
+            'minmax_subgrid':minmax_subgrid,
+            'minmax_row':minmax_row,
+            'minmax_column':minmax_column,
+            'min_sd_subgrid':min_sd_subgrid,
+            'min_sd_row':min_sd_row,
+            'min_sd_column':min_sd_column,
+            'subgrids_complete':subgrids_complete,
+            'subgrids_empty':subgrids_empty,
+            'row_complete':row_complete,
+            'row_empty':row_empty,
+            'column_complete':column_complete,
+            'column_empty':column_empty,
+            'sum_puzzle':sum_puzzle, 'sd_puzzle':sd_puzzle,
+            'least_subgrid_sum':least_subgrid_sum,
+            'highest_subgrid_sum':highest_subgrid_sum,
+            'least_highest_subgrid':least_highest_subgrid,
+            'least_max_subgrid':least_max_subgrid,
+            'highest_max_subgrid':highest_max_subgrid,
+            'least_row_sum':least_row_sum,
+            'highest_row_sum':highest_row_sum,
+            'least_highest_row':least_highest_row,
+            'least_max_row':least_max_row,
+            'highest_max_row':highest_max_row,
+            'highest_column_sum':highest_column_sum,     
+            'least_column_sum':least_column_sum,       
+            'least_highest_column':least_highest_column,
+            'least_max_column':least_max_column,
+            'highest_max_column':highest_max_column,
+            'highest_occ_puzzle':highest_occ_puzzle,
+            'lowest_occ_puzzle':lowest_occ_puzzle,
+            'puzzle_diagonal':puzzle_diagonal},ignore_index = True)
+        #print(df_add)
+        load_to_csv(df_add)
 
 def load_to_csv(df_add):
-    df_add.to_csv('features.csv', mode = 'a', header = False)
+    df_add.to_csv('features_sudoku_work.csv', mode = 'a', header = False)
 
 def encode_sudoku_to_numpy(df , N):
     a = df.to_numpy()
@@ -148,6 +146,13 @@ def main():
     #load the path and iterate through all the instances to get the features
     df_np, N = load_path()
     #print(N, df_np)
+
+def columnnames():
+    colum = []
+    for i in range(40):
+        colum.append('col'+i)
+        
+    return colum
 
 if __name__ == "__main__":
     main() 
