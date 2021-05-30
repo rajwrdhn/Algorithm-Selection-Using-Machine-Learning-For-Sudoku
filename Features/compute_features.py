@@ -272,10 +272,22 @@ class feature_computations():
         return max(su)
     
     def leasthighestsubgrid(self):
-        
+        p1 = self.leastsubgridsum()
+        p2 = self.highestsubgridsum()
 
+        return p1/p2 
     
+    def leastmaxsubgrid(self):
+        p1 = self.leastsubgridsum()
+        p2 = self.sumof()
+        return p1/p2 
     
+    def highestmaxsubgrid(self):
+        p1 = self.sumof()
+        p2 = self.highestsubgridsum()
+
+        return p2/p1 
+
     def leastrowsum(self):
         a = self.df.tolist()
         su = [] 
@@ -291,6 +303,23 @@ class feature_computations():
             su.append(sum(x))
         return max(su)
     
+    def leasthighestrow(self):
+        p1 = self.leastrowsum()
+        p2 = self.highestrowsum()
+
+        return p1/p2 
+    
+    def leastmaxrow(self):
+        p1 = self.leastrowsum()
+        p2 = self.sumof()
+        return p1/p2 
+    
+    def highestmaxrow(self):
+        p1 = self.sumof()
+        p2 = self.highestrowsum()
+
+        return p2/p1 
+    
     def highestcolumnsum(self):        
         a = self.df.transpose().tolist()
         su = [] 
@@ -305,6 +334,23 @@ class feature_computations():
         for x in a:
             su.append(sum(x))
         return min(su)
+
+    def leasthighestcolumn(self):
+        p1 = self.leastcolumnsum()
+        p2 = self.highestcolumnsum()
+
+        return p1/p2 
+
+    def leastmaxcolumn(self):
+        p1 = self.leastcolumnsum()
+        p2 = self.sumof()
+        return p1/p2 
+    
+    def highestmaxcolumn(self):
+        p1 = self.sumof()
+        p2 = self.highestcolumnsum()
+
+        return p2/p1 
 
     def highestoccurrenceofnumber(self):
         a = self.df

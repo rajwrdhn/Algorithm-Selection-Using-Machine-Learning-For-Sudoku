@@ -25,8 +25,8 @@ def load_path():
 
 def call_feature_computation_class(df_np , N,  j,k, i):
     #todays_date = datetime.datetime.now().date()
-    colum = ['col1','col2','col3','col4','col5','col6','col7','col8', 'col9', 'col10']
-    df_add = pd.DataFrame(columns = colum)
+    colum = ['col1','col2','col3','col4','col5','col6','col7','col8', 'col9', 'col10', ]
+    df_add = pd.DataFrame(columns=colum)
     if N>0 :
         import compute_features
         import convert_to_matrix
@@ -59,16 +59,70 @@ def call_feature_computation_class(df_np , N,  j,k, i):
         column_complete = model.numberofcolumnsfilledcompletely()
         column_empty = model.numberofcolumnsempty()
         sum_puzzle, sd_puzzle = model.totalsumofnumbers()
+        least_subgrid_sum = model.leastsubgridsum()
+        highest_subgrid_sum = model.highestsubgridsum()
+        least_highest_subgrid = model.leasthighestsubgrid()
+        least_max_subgrid = model.leastmaxsubgrid() 
+        highest_max_subgrid = model.highestmaxsubgrid()
+        least_row_sum = model.leastrowsum()
+        highest_row_sum = model.highestrowsum()
+        least_highest_row = model.leasthighestrow()
+        least_max_row = model.leastmaxrow()
+        highest_max_row = model.highestmaxrow()
+        highest_column_sum = model.highestcolumnsum()        
+        least_column_sum = model.leastcolumnsum()        
+        least_highest_column = model.leasthighestcolumn()
+        least_max_column = model.leastmaxcolumn()
+        highest_max_column = model.highestmaxcolumn()
         highest_occ_puzzle = model.highestoccurrenceofnumber()
         lowest_occ_puzzle = model.lowestoccurrenceofnumber()
         puzzle_diagonal = model.diagonalmatrix()
 
         
-        #df_add = df_add.append({'col0': x0, 'col1': x1, 'col2': x2, #'col3': x3, 
-        #                                   'col4': x4, 'col5': x5, 'col6': x6,
-        #                                   'col7': x7, 'col8': x8, 'col9': x9 , 'col10': x10} , 
-        #                                   ignore_index = True)
-        #print(df_add)
+        df_add = df_add.append({ name_puzzle, size_puzzle,order_puzzle,
+            median_puzzle,
+            mode_puzzle,
+            mean_puzzle, 
+        total_sum,
+        percent_puzzle,
+        smallest_row,
+        largest_row,
+        smallest_column,
+        largest_column,
+        smallest_subgrid,
+        largest_subgrid,
+        minmax_subgrid,
+        minmax_row,
+        minmax_column,
+        min_sd_subgrid,
+        min_sd_row,
+        min_sd_column,
+        subgrids_complete,
+        subgrids_empty,
+        row_complete,
+        row_empty,
+        column_complete,
+        column_empty,
+        sum_puzzle, sd_puzzle,
+        least_subgrid_sum,
+        highest_subgrid_sum,
+        least_highest_subgrid,
+        least_max_subgrid,
+        highest_max_subgrid,
+        least_row_sum,
+        highest_row_sum,
+        least_highest_row,
+        least_max_row,
+        highest_max_row,
+        highest_column_sum,     
+        least_column_sum,       
+        least_highest_column,
+        least_max_column,
+        highest_max_column,
+        highest_occ_puzzle,
+        lowest_occ_puzzle,
+        puzzle_diagonal},ignore_index = True)
+        print(df_add)
         #load_to_csv(df_add)
 
 def load_to_csv(df_add):
