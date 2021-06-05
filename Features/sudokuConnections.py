@@ -1,12 +1,12 @@
 from graph import Graph
 
 class SudokuConnections() : 
-    def __init__(self) :  # constructor
+    def __init__(self, size) :  # constructor
 
         self.graph = Graph() # Graph Object
 
-        self.rows = 9
-        self.cols = 9
+        self.rows = size
+        self.cols = size
         self.total_blocks = self.rows*self.cols #81
 
         self.__generateGraph() # Generates all the nodes

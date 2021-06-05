@@ -29,5 +29,5 @@ def method_iter():
 method_iter()
 #print(dict_gur)
 df = pandas.DataFrame(dict_gur, columns=['name', 'time', 'algo'])
-df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/gurobi.csv',index=False)
+df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/gurobitime.csv',index=False)
 #print(df)

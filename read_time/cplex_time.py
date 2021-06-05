@@ -27,5 +27,5 @@ def method_iter():
                     
 method_iter()
 df = pandas.DataFrame(dict_plex, columns=['name', 'time', 'algo'])
-df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/cplex.csv',index=False)
+df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/cplextime.csv',index=False)
 #print(df)

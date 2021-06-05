@@ -68,74 +68,6 @@ class Graph:
 
     def getAllNodesIds(self) : 
         return self.allNodes.keys()
-
-    # methods
-    def DFS(self, start) :
-        """
-        start is an id of the start node
-        """ 
-        # STACKBahujan  TV
-        visited = [False]*Graph.totalV
-
-        if start in self.allNodes.keys() : 
-            self.__DFSUtility(node_id = start, visited=visited) 
-        else : 
-            print("Start Node not found")
-
-    def __DFSUtility(self, node_id, visited) : 
-        visited = self.__setVisitedTrue(visited=visited, node_id=node_id)
-        #print
-        print(self.allNodes[node_id].getID(), end = " ")
-
-        #Recursive Stack
-        for i in self.allNodes[node_id].getConnections() : 
-            if visited[self.allNodes[i].getID()] == False : 
-                self.__DFSUtility(node_id = self.allNodes[i].getID(), 
-                visited=visited)
-
-    def BFS(self, start) : 
-        """
-        start is an id of the start node
-        """
-        #Queue
-        visited = [False]*Graph.totalV
-
-        if start in self.allNodes.keys() : 
-            self.__BFSUtility(node_id = start, visited=visited) 
-        else : 
-            print("Start Node not found")
-
-    def __BFSUtility(self, node_id, visited) :
-        queue = []
-        visited = self.__setVisitedTrue(visited=visited, node_id=node_id)
-
-        queue.append(node_id)
-
-        while queue != [] : 
-            x = queue.pop(0) 
-            #print
-            print(self.allNodes[x].getID(), end = " ")
-
-            for i in self.allNodes[x].getConnections() : 
-                idx = self.allNodes[i].getID()
-                if visited[idx]  == False : 
-                    queue.append(idx)
-                    visited = self.__setVisitedTrue(visited=visited,
-                     node_id=idx)
-        
-
-
-    def __setVisitedTrue(self, visited, node_id) : 
-        """
-        Utility function for BFS and DFS 
-        
-        Through this function we will set visited[id] = True
-        Preprocessing node_id if required
-        Since now node_id is an integer it is not required to preprocess it
-        """
-        visited[node_id] = True
-        return visited
-
 """
 TESTING
 """
@@ -157,14 +89,6 @@ def test() :
     g.addEdge(5,2,1)
 
     g.printEdges()
-
-    print("DFS : (starting with 0)")
-    g.DFS(0)
-    print()
-    
-    print("BFS : (starting with 0)")
-    g.BFS(0)
-    print()
 
 if __name__ == "__main__" : 
     test()

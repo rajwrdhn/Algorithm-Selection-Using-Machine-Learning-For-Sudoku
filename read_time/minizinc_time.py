@@ -25,4 +25,4 @@ def method_iter():
                     
 method_iter()
 df = pandas.DataFrame(dict_chuf, columns=['name', 'time', 'algo'])
-df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/chuf.csv',index=False)
+df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/chuftime.csv',index=False)

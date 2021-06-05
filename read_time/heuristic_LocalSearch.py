@@ -28,4 +28,4 @@ def method_iter():
                     
 method_iter()
 df = pandas.DataFrame(dict_hls, columns=['name', 'time', 'algo'])
-df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/hy_ls.csv',index=False)
+df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/hy_lstime.csv',index=False)

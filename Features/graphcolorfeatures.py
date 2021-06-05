@@ -31,27 +31,3 @@ class GraphColorAsSudoku():
     def pri(self):
         print(self.sudoku)
         print(self.size)
-    
-    def __graphColorUtility(self, m, color, v, given) :
-        
-        if v == self.sudokuGraph.graph.totalV+1  : 
-            return True
-        for c in range(1, m+1) : 
-            if self.__isSafe2Color(v, color, c, given) == True :
-                color[v] = c
-                if self.__graphColorUtility(m, color, v+1, given) : 
-                    return True
-            if v not in given : 
-                color[v] = 0
-
-    def __isSafe2Color(self, v, color, c, given) : 
-        
-        if v in given and color[v] == c: 
-            return True
-        elif v in given : 
-            return False
-
-        for i in range(1, self.sudokuGraph.graph.totalV+1) :
-            if color[i] == c and self.sudokuGraph.graph.isNeighbour(v, i) :
-                return False
-        return True

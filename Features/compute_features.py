@@ -399,11 +399,21 @@ class feature_computations():
             return min(s, key=s.count)
         else: return 0
 
-    def calculate_gcp_features(self):
-        import graphcolorfeatures
-        gcp_model = graphcolorfeatures.GraphColorAsSudoku(self.df,self.size)
-        gcp_model.make_puzzle()
-        
+    def leastnumberforonesolution(self):
+        """Contains atleast one less from the domain set of size!"""
+        puzzle = self.df 
+        return puzzle
+    
+    def getmaxclique(self):
+        x1 = self.sizeoflargestcolumn()
+        x2 = self.sizeoflargestrow()
+        x3 = self.sizeoflargestsubgrid()
+
+        return max(x1,x2,x3)
+
+    def calculateedges(self):
+
+        return 0
 
     def deeplearning1(self):
         self.list_deepLearning.append(self.name_)
