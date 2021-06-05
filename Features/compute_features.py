@@ -408,7 +408,7 @@ class feature_computations():
     
     #Done
     def least_condition_binary(self):
-        if (self.leastnumberforonesolution() == self.size-1):
+        if (self.leastnumberforonesolution() >= self.size-1):
             return 1
         else: return 0
 
