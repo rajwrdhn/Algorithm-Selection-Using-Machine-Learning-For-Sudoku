@@ -11,8 +11,8 @@ OUTPUT_BASEPATH = 'output'
 
 #Loads the puzzles from the dataset
 def load_path():
-    for k in range(3,10):
-        for i in range(0, 105, 5):        
+    for k in range(4,10):
+        for i in range(5, 100, 5):        
             for j in range(1,21):
                 sta = 'puzzle' + str(j)            
                 read_sudoku = pd.read_csv(os.path.join(DATA_BASEPATH,'benchmarks'+str(k)+'x'+str(k),str(i),sta +'.txt'), 'r')
@@ -75,6 +75,9 @@ def call_feature_computation_class(df_np , N,  j,k, i):
         highest_occ_puzzle = model.highestoccurrenceofnumber()
         lowest_occ_puzzle = model.lowestoccurrenceofnumber()
         puzzle_diagonal = model.diagonalmatrix()
+        max_clique = model.getmaxclique()
+        least_condition_for_solution = model.leastnumberforonesolution()
+        least_condition_bin = model.least_condition_binary()
 
         
         df_add = df_add.append({ 'name_puzzle' :name_puzzle, 'size_puzzle':size_puzzle,'order_puzzle':order_puzzle,
@@ -119,12 +122,15 @@ def call_feature_computation_class(df_np , N,  j,k, i):
             'highest_max_column':highest_max_column,
             'highest_occ_puzzle':highest_occ_puzzle,
             'lowest_occ_puzzle':lowest_occ_puzzle,
-            'puzzle_diagonal':puzzle_diagonal},ignore_index = True)
+            'puzzle_diagonal':puzzle_diagonal,
+            'max_clique': max_clique,
+            'least_condition_for_solution': least_condition_for_solution,
+            'least_condition_bin': least_condition_bin}, ignore_index = True)
         #print(df_add)
         load_to_csv(df_add)
 
 def load_to_csv(df_add):
-    df_add.to_csv('features_sudoku_work.csv', mode = 'a', header = False)
+    df_add.to_csv('features_sudoku_work_new0.csv', mode = 'a', header = False)
 
 def encode_sudoku_to_numpy(df , N):
     a = df.to_numpy()

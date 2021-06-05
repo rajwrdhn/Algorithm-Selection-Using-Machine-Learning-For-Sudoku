@@ -399,21 +399,50 @@ class feature_computations():
             return min(s, key=s.count)
         else: return 0
 
+    #Done
     def leastnumberforonesolution(self):
         """Contains atleast one less from the domain set of size!"""
         puzzle = self.df 
-        return puzzle
+        a = np.unique(puzzle) 
+        return len(a[a != 0])    
     
+    #Done
+    def least_condition_binary(self):
+        if (self.leastnumberforonesolution() == self.size-1):
+            return 1
+        else: return 0
+
+
+    #Done
     def getmaxclique(self):
         x1 = self.sizeoflargestcolumn()
         x2 = self.sizeoflargestrow()
         x3 = self.sizeoflargestsubgrid()
 
         return max(x1,x2,x3)
+    #TODO: see helper below
+    def calculateedgesnumber(self):
+        puzzle = self.df
+        count =0
+        for i in range(self.size):
+            for j in range(self.size):
+                if(puzzle[i][j] > 0 ):
+                    count = self.helperforedges(i,j,count)
+        return count/2
+    #TODO : use graph class and adjacency matrix
+    #us this also to calculate the max degree
+    def helperforedges(self,i,j, count):
+        #go through the entire row
+        for k in range(self.size):
+            if (self.df[i][k] > 0):
+                count +=1
+        #go through the entire column
+        for l in range(self.size):
+            if (self.df[l][j] > 0):
+                count +=1
+        #go through the entire subgrid
+        return count 
 
-    def calculateedges(self):
-
-        return 0
 
     def deeplearning1(self):
         self.list_deepLearning.append(self.name_)
