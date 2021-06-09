@@ -37,7 +37,7 @@ df = pandas.DataFrame(dict_chuf, columns=['name', 'pathschuf', 'flatintvarschuf'
 df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/chuffeature.csv',index=False)
 
 df = pandas.DataFrame(dict_gurobi, columns=['name','pathsgurobi', 'flatintvarsgurobi','flatintconstraintsgurobi','flattimegurobi'])
-df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/gurobif.csv',index=False)
+df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/gurobifeature.csv',index=False)
 
 df = pandas.DataFrame(dict_cplex, columns=['name','pathscplex', 'flatintvarscplex','flatintconstraintscplex','flattimecplex'])
-df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/cplexf.csv',index=False)
+df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/cplexfeature.csv',index=False)

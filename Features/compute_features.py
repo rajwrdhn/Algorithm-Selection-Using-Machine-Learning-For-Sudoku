@@ -25,8 +25,7 @@ class feature_computations():
     
     def sumof(self):
         for i in range(self.size):
-            i = i +1
-        
+            i = i +1        
         return i
         
     def percentofnumbers(self):
