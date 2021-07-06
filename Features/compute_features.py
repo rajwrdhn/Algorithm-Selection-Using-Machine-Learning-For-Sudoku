@@ -419,6 +419,28 @@ class feature_computations():
         x3 = self.sizeoflargestsubgrid()
 
         return max(x1,x2,x3)
+    
+    def getminclique(self):
+        x1 = self.sizeofsmallestcolumn()
+        x2 = self.sizeofsmallestrow()
+        x3 = self.sizeofsmallestsubgrid()
+
+        return min(x1,x2,x3)
+
+    #Standard deviation of max clique
+    def getsdclique(self):
+        sd = self.getmaxclique()/self.size
+        return sd 
+    
+    #standard deviation of min clique
+    def getmincliquesd(self):
+        sd = self.getminclique() / self.size
+        return sd 
+
+    def ratiominmaxclique(self):
+        r = self.getminclique() / self.getmaxclique() 
+        return r
+        
     #TODO: see helper below
     def calculateedgesnumber(self):
         puzzle = self.df
@@ -429,7 +451,7 @@ class feature_computations():
                     count = self.helperforedges(i,j,count)
         return count/2
     #TODO : use graph class and adjacency matrix
-    #us this also to calculate the max degree
+    #use this also to calculate the max degree
     def helperforedges(self,i,j, count):
         #go through the entire row
         for k in range(self.size):
