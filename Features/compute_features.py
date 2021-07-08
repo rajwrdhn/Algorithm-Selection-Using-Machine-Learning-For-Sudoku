@@ -2,6 +2,7 @@
 import os
 import math
 import numpy as np
+import matplotlib
 import pandas as pd 
 from scipy import stats
 import scipy
@@ -379,6 +380,52 @@ class feature_computations():
             return 0
         else: return p2/p1
 
+    #multiplication of row
+    def multiplymaxrow(self):
+        return 0
+
+    def multiplymaxcolumn(self):
+        return 0
+    
+    def multiplymaxsubgrid(self):
+        return 0 
+    
+    def multiplyminrow(self):
+        return 0
+    
+    def multiplymincolumn(self):
+        return 0
+    
+    def multiplyminsubgrid(self):
+        return 0
+    
+    def sdmultiplyminmaxrow(self):
+        return 0
+    
+    def sdmultiplyminmaxcolumn(self):
+        return 0
+    
+    def sdmultiplyminmaxsubgrid(self):
+        return 0
+    
+    def sdminrowmultiply(self):
+        return 0
+    
+    def sdmaxrowmultiply(self):
+        return 0
+    
+    def sdmincolumnmultiply(self):
+        return 0
+    
+    def sdmaxcolumnmultiply(self):
+        return 0
+    
+    def sdminsubgridmultiply(self):
+        return 0
+    
+    def sdmaxsubgridmultiply(self):
+        return 0
+
     def highestoccurrenceofnumber(self):
         a = self.df
         s = a[a>0]
@@ -410,6 +457,8 @@ class feature_computations():
         if (self.leastnumberforonesolution() >= self.size-1):
             return 1
         else: return 0
+
+
 
 
     #Done
