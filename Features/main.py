@@ -15,7 +15,8 @@ def load_path():
         for i in range(5, 100, 5):        
             for j in range(1,21):
                 sta = 'puzzle' + str(j)            
-                read_sudoku = pd.read_csv(os.path.join(DATA_BASEPATH,'benchmarks'+str(k)+'x'+str(k),str(i),sta +'.txt'), 'r')
+                read_sudoku = pd.read_csv(os.path.join(DATA_BASEPATH,
+                            'benchmarks'+str(k)+'x'+str(k),str(i),sta +'.txt'), 'r')
                 df = read_sudoku.iloc[1:, :]
                 N = int(df.size)
                 df_np = encode_sudoku_to_numpy(df, N)
@@ -28,7 +29,8 @@ def call_feature_computation_class(df_np , N,  j,k, i):
     df_add = pd.DataFrame()
     if N>0 :
         import compute_features
-        model = compute_features.feature_computations(df_np, N, "benchmark_puzzles/benchmarks%dx%d/%d/puzzle%d.txt" %(k,k,i,j))        
+        model = compute_features.feature_computations(df_np, N, 
+                "benchmark_puzzles/benchmarks%dx%d/%d/puzzle%d.txt" %(k,k,i,j))        
         name_puzzle = "benchmark_puzzles/benchmarks%dx%d/%d/puzzle%d.txt" %(k,k,i,j)
         size_puzzle = model.sizeofpuzzle()
         order_puzzle = model.orderofpuzzle()
@@ -80,7 +82,9 @@ def call_feature_computation_class(df_np , N,  j,k, i):
         least_condition_bin = model.least_condition_binary()
 
         
-        df_add = df_add.append({ 'name_puzzle' :name_puzzle, 'size_puzzle':size_puzzle,'order_puzzle':order_puzzle,
+        df_add = df_add.append({ 'name_puzzle' :name_puzzle, 
+            'size_puzzle':size_puzzle,
+            'order_puzzle':order_puzzle,
             'median_puzzle':median_puzzle,
             #'mode_puzzle':mode_puzzle,
             'mean_puzzle':mean_puzzle, 

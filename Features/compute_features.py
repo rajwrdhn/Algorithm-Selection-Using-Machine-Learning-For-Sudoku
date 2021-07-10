@@ -24,11 +24,12 @@ class feature_computations():
         a = math.sqrt(self.size)
         return a
     
+    # sum of all domain
     def sumof(self):
-        for i in range(self.size):
-            i = i +1        
-        return i
-        
+        k = self.size * (self.size + 1)       
+        return k/2
+    
+    # percent of filled cells
     def percentofnumbers(self):
         counter = 0
 
@@ -41,32 +42,39 @@ class feature_computations():
         else:
             per = 0  
         return per
-    
+    # mean of puzzle
     def meanofpuzzle(self):
         a = np.mean(self.df)
         return a 
     
-    def medianofpuzzle(self):        
-        m = np.median(self.df)
+    def medianofpuzzle(self):
+        print(self.df)
+        k = np.where(np.array(self.df) > 0)        
+        m = np.median(k)
         return m
     
+    # not to be done this way
     def modeofpuzzle(self):
         a = self.df.ravel()
         m = stats.mode(a, axis =None)        
         return m
 
+    # This is not required, mean has been done.
     def averageofpuzzle(self):
         a = np.average(self.df)
         return a 
 
+    # Sum of all the numbers in the puzzle
     def sumofnumbers(self):
         s = np.sum(self.df)
         return s
 
+    # not needed at the moment
     def percentilepuzzle(self):
         p = np.percentile(self.df, 80)
         return p
     
+    # Not needed or proper
     def manhattandistance(self):
         k = np.zeros((self.size,self.size)).astype(int).ravel()
         a = self.df.ravel()
@@ -532,4 +540,3 @@ class feature_computations():
             for j in range(self.size):
                 self.list_deepLearning.append(self.df[i][j])
         return self.list_deepLearning
-    
