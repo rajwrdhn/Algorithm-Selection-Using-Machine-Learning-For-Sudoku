@@ -11,16 +11,15 @@ OUTPUT_BASEPATH = 'output'
 
 #Loads the puzzles from the dataset
 def load_path():
-    for k in range(4,10):
-        for i in range(5, 100, 5):        
-            for j in range(1,21):
+    for k in range(3,4):
+        for i in range(5, 10, 5):        
+            for j in range(1,2):
                 sta = 'puzzle' + str(j)            
                 read_sudoku = pd.read_csv(os.path.join(DATA_BASEPATH,
                             'benchmarks'+str(k)+'x'+str(k),str(i),sta +'.txt'), 'r')
                 df = read_sudoku.iloc[1:, :]
                 N = int(df.size)
                 df_np = encode_sudoku_to_numpy(df, N)
-                #print(df_np)
                 call_feature_computation_class(df_np, N, j,k, i)   
     return df_np, N 
 
