@@ -50,16 +50,10 @@ class feature_computations():
         a = np.mean(self.df)
         return a 
     
+    # Not used
     def medianofpuzzle(self):
-        print(self.df)
         k = np.where(np.array(self.df) > 0)        
         m = np.median(k)
-        return m
-    
-    # not to be done this way
-    def modeofpuzzle(self):
-        a = self.df.ravel()
-        m = stats.mode(a, axis =None)        
         return m
 
     # This is not required, mean has been done.
@@ -77,19 +71,12 @@ class feature_computations():
         p = np.percentile(self.df, 80)
         return p
     
-    # Not needed or proper
-    def manhattandistance(self):
-        k = np.zeros((self.size,self.size)).astype(int).ravel()
-        a = self.df.ravel()
-        b = np.where(a > 0.5, 1, 0)
-        p = distance.cityblock(b, k)
-        return p 
-        
+    # Not used
     def calculate_points(self):
         li = self.df.tolist()
         return li
     
-    # get subgrids helper
+    # subgrids helper
     def getsubgrids(self):
         d = self.df#.tolist()
         subgrids = []
@@ -122,14 +109,18 @@ class feature_computations():
                 maxa = xd
         return maxa
     
-    # min isto max subgrid size standard deviation
-    def minmaxsubgrid(self):
+    # min isto max range subgrid size
+    def rangeminmaxsubgrid(self):
         p1 = self.sizeofsmallestsubgrid()
         p2 = self.sizeoflargestsubgrid()
+        return p2-p1
+    
+    # max vs total range for subgrid
+    def rangemintotalsubgrid(self):
+        p1 = self.sizeoflargestsubgrid()
+        p2 = self.size
 
-        if (p1 ==0 or p2 ==0):
-            return 0
-        else: return p1/p2
+        return p2-p1
     
     # sd of min from fullsize
     def minsdsubgrid(self):
@@ -458,7 +449,12 @@ class feature_computations():
         return max(m)
     
     def multiplymaxsubgrid(self):
-        return 0 
+        a = self.getsubgrids()
+        m =[]
+        for x in a:
+            m.append(self.listmul(x))
+
+        return max(m)
     
     def multiplyminrow(self):
         a = self.df.tolist()
@@ -475,16 +471,23 @@ class feature_computations():
         return min(m)
     
     def multiplyminsubgrid(self):
-        return 0
+        a = self.getsubgrids() 
+        m = []
+        for x in a:
+            m.append(self.listmul(x))
+        return min(m)
     
-    def sdmultiplyminmaxrow(self):
-        return 0
+    def rangemultiplyminmaxrow(self):
+        m = self.multiplymaxrow() - self.multiplyminrow() 
+        return m  
     
-    def sdmultiplyminmaxcolumn(self):
-        return 0
+    def rangemultiplyminmaxcolumn(self):
+        m = self.multiplymaxcolumn() - self.multiplymincolumn() 
+        return m  
     
-    def sdmultiplyminmaxsubgrid(self):
-        return 0
+    def rangemultiplyminmaxsubgrid(self):
+        m = self.multiplymaxsubgrid() - self.multiplyminsubgrid() 
+        return m  
     
     def sdminrowmultiply(self):
         return 0

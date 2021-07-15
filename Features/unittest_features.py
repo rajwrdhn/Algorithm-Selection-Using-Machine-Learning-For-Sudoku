@@ -35,9 +35,8 @@ class TestFeatureMethods(unittest.TestCase):
         
         self.assertEqual(model.sizeoflargestsubgrid(), 4)
         
-    def test_minmaxsubgrid(self):
-        
-        self.assertEqual(model.minmaxsubgrid(), 0)
+    def test_rangeminmaxsubgrid(self):
+        self.assertEqual(model.rangeminmaxsubgrid(), 4)
     
     def test_minsdsubgrid(self):
         
