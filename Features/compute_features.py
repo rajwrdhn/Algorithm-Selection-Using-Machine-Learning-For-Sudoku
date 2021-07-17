@@ -453,7 +453,6 @@ class feature_computations():
         m =[]
         for x in a:
             m.append(self.listmul(x))
-
         return max(m)
     
     def multiplyminrow(self):
@@ -525,14 +524,14 @@ class feature_computations():
             return min(s, key=s.count)
         else: return 0
 
-    #Done
+    #Done helper for least condition for one solution
     def leastnumberforonesolution(self):
         """Contains atleast one less from the domain set of size!"""
         puzzle = self.df 
         a = np.unique(puzzle) 
         return len(a[a != 0])    
     
-    #Done
+    # Done least condition for a single solution
     def least_condition_binary(self):
         if (self.leastnumberforonesolution() >= self.size-1):
             return 1
@@ -541,7 +540,7 @@ class feature_computations():
 
 
 
-    #Done
+    # Done max clique gcp of sudoku
     def getmaxclique(self):
         x1 = self.sizeoflargestcolumn()
         x2 = self.sizeoflargestrow()
@@ -549,6 +548,7 @@ class feature_computations():
 
         return max(x1,x2,x3)
     
+    # min clique gcp of sudoku
     def getminclique(self):
         x1 = self.sizeofsmallestcolumn()
         x2 = self.sizeofsmallestrow()
@@ -556,18 +556,24 @@ class feature_computations():
 
         return min(x1,x2,x3)
 
-    #Standard deviation of max clique
+    # Standard deviation of max clique
     def getsdclique(self):
         sd = self.getmaxclique()/self.size
         return sd 
     
-    #standard deviation of min clique
+    # standard deviation of min clique
     def getmincliquesd(self):
         sd = self.getminclique() / self.size
         return sd 
 
+    # clique ratio
     def ratiominmaxclique(self):
         r = self.getminclique() / self.getmaxclique() 
+        return r
+
+    # range clique
+    def rangeminmaxclique(self):
+        r = self.getminclique() - self.getmaxclique() 
         return r
         
     #TODO: see helper below
@@ -579,6 +585,7 @@ class feature_computations():
                 if(puzzle[i][j] > 0 ):
                     count = self.helperforedges(i,j,count)
         return count/2
+    
     #TODO : use graph class and adjacency matrix
     #use this also to calculate the max degree
     def helperforedges(self,i,j, count):

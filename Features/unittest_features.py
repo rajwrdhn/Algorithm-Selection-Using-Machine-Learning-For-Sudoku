@@ -21,33 +21,27 @@ class TestFeatureMethods(unittest.TestCase):
     def test_sumofnumbers(self):        
         self.assertEqual(model.sumofnumbers(), 20)
     
-    def test_getsubgrids(self):
-       
+    def test_getsubgrids(self):       
         self.assertEqual(model.getsubgrids(), 
             [[3, 2, 0, 0], [0, 0, 0, 0], 
             [1, 3, 2, 4], [4, 0, 0, 1]])
 
-    def test_sizeofsmallestsubgrid(self):
-        
+    def test_sizeofsmallestsubgrid(self):        
         self.assertEqual(model.sizeofsmallestsubgrid(), 0)
     
-    def test_sizeoflargestsubgrid(self):
-        
+    def test_sizeoflargestsubgrid(self):       
         self.assertEqual(model.sizeoflargestsubgrid(), 4)
         
     def test_rangeminmaxsubgrid(self):
         self.assertEqual(model.rangeminmaxsubgrid(), 4)
     
     def test_minsdsubgrid(self):
-        
         self.assertEqual(model.minsdsubgrid(), 0)
     
     def test_numberofsubgridsfilledcompletely(self):
-        
         self.assertEqual(model.numberofsubgridsfilledcompletely(),1)
     
     def test_numberofsubgridsempty(self):
-
         self.assertEqual(model.numberofsubgridsempty(), 1)
     
     def test_sizeofsmallestrow(self):
