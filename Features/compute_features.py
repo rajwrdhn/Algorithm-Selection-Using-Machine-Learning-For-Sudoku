@@ -318,16 +318,17 @@ class feature_computations():
                 count += 1
         return count
     
-    # sum of numbers on the sudoku board standard deviation
-    def totalsumofnumberssd(self): #standard deviation from sum, sum and total sum
+    # sum of numbers on the sudoku board ratio and range
+    def totalsumofnumbersrr(self): #ratio and range from sum, sum and total sum
         a = self.df.sum()
         su = 0
         for i in range(self.size):
             for j in range(1, (self.size +1)):
                 su = su + j
 
-        sd = a/su #standard deviation
-        return sd
+        r = su - a #range
+        ra = a/su #ratio
+        return r, ra
 
     # subgrid sum least
     def leastsubgridsum(self):
@@ -345,7 +346,7 @@ class feature_computations():
             su.append(sum(x))
         return max(su)
     
-    # least to highest sd 
+    # least to highest ratio
     def leasthighestsubgrid(self):
         p1 = self.leastsubgridsum()
         p2 = self.highestsubgridsum()
@@ -354,7 +355,7 @@ class feature_computations():
             return 0
         else: return p1/p2
     
-    # least to max sd
+    # least to max ratio
     def leastmaxsubgrid(self):
         p1 = self.leastsubgridsum()
         p2 = self.sumof()
@@ -362,7 +363,7 @@ class feature_computations():
             return 0
         else: return p1/p2 
     
-    # highest to max sd
+    # highest to max ratio
     def highestmaxsubgrid(self):
         p1 = self.sumof()
         p2 = self.highestsubgridsum()
@@ -397,13 +398,13 @@ class feature_computations():
             return 0
         else: return p1/p2
     
-    # least isto max sd
+    # least isto max ratio
     def leastmaxrow(self):
         p1 = self.leastrowsum()
         p2 = self.sumof()
         return p1/p2 
     
-    # highest isto max row
+    # highest isto max row ratio
     def highestmaxrow(self):
         p1 = self.sumof()
         p2 = self.highestrowsum()
@@ -437,14 +438,15 @@ class feature_computations():
             return 0
         else: return p1/p2
 
-    # least isto max sum sd column sum
+    # least isto max sum ratio column sum
     def leastmaxcolumn(self):
         p1 = self.leastcolumnsum()
         p2 = self.sumof()
         if (p1 ==0 or p2 ==0):
             return 0
         else: return p1/p2
-    # highest isto max sum sd column sum
+    
+    # highest isto max sum ratio column sum
     def highestmaxcolumn(self):
         p1 = self.sumof()
         p2 = self.highestcolumnsum()
@@ -520,20 +522,36 @@ class feature_computations():
     # store multiplication of each row as a list for sd
     def rowmultiplicationlist(self):
         r = self.df.tolist() # row
-        c = self.df.transpose().tolist()
-        sg = self.getsubgrids()
         mr = []
         for x in r:
             mr.append(self.listmul(x))
+        return mr
+
+    # store multiplication of each column as a list for sd
+    def columnmultiplicationlist(self):
+        c = self.df.transpose().tolist()
         
         mc = []
         for x in c:
             mc.append(self.listmul(x))
 
+        return mc  
+
+    # store multiplication of each subgrid as a list for sd
+    def subgridmultiplicationlist(self):
+        sg = self.getsubgrids()
+
         ms = []
         for x in sg:
-            mc.append(self.listmul(x))
-        return mr, mc, ms  
+            ms.append(self.listmul(x))
+        return ms
+
+    # sudoku board multiplication for size
+    def multiplyof(self):
+        res = 1 
+        for i in range(self.size):
+            res = res * (i+1)
+        return res  
     
     def sdminrowmultiply(self):
         return 0
@@ -674,4 +692,4 @@ if __name__ == "__main__":
             (1, 3, 4, 0),
             ( 2, 4, 0, 1)])
     model = feature_computations(hard, 4, "")
-    print(model.sdsizecolumn())
+    print(model.multiplyof())

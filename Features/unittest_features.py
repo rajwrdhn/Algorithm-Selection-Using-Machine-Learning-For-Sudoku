@@ -81,7 +81,7 @@ class TestFeatureMethods(unittest.TestCase):
         self.assertEqual(model.numberofrowsempty(), 1)
     
     def test_totalpuzzlesumsd(self):
-        self.assertEqual(model.totalsumofnumberssd(), 20/40)
+        self.assertEqual(model.totalsumofnumbersrr(), (20 , 20/40))
     
     def test_leastsubgridsum(self):
         self.assertEqual(model.leastsubgridsum(), 0)
