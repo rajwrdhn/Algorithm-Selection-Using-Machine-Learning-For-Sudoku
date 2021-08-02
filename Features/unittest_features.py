@@ -48,10 +48,10 @@ class TestFeatureMethods(unittest.TestCase):
         self.assertEqual(model.minmaxrow(), 0)
     
     def test_minsdrow(self):
-        self.assertEqual(model.minsdrow(), 0)
+        self.assertEqual(model.minratiorow(), 0)
     
     def test_maxsdrow(self):
-        self.assertEqual(model.maxsdrow(), 3/4)
+        self.assertEqual(model.maxratiorow(), 3/4)
     
     def test_sizeofsmallestcolumn(self):
         self.assertEqual(model.sizeofsmallestcolumn(), 1)
@@ -59,10 +59,10 @@ class TestFeatureMethods(unittest.TestCase):
     def test_sizeoflargestcolumn(self):
         self.assertEqual(model.sizeoflargestcolumn(), 3)
     
-    def test_minsdcolumn(self):
-        self.assertEqual(model.minsdcolumn(), 1/4)
+    def test_minratiocolumn(self):
+        self.assertEqual(model.minratiocolumn(), 1/4)
     
-    def test_minmaxsdcolumn(self):
+    def test_minmaxcolumn(self):
         self.assertEqual(model.minmaxcolumn(), 1/3)
     
     def test_diagonalmatrix(self):

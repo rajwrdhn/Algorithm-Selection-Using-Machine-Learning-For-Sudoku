@@ -7,6 +7,7 @@ import pandas as pd
 from scipy import stats
 import scipy
 from scipy.spatial import distance
+from statistics import stdev
 
 
 class feature_computations():
@@ -147,6 +148,16 @@ class feature_computations():
                 count += 1
         return count 
 
+    # size subgrid standard deviation
+    def sdsizesubgrid(self):
+        l = self.getsubgrids()
+        a = []
+        for x in l:
+            xd = [i for i in x if i > 0]
+            a.append(len(xd))
+        sd = stats.tstd(a)
+        return sd
+
     # smallest row size
     def sizeofsmallestrow(self):
         p = self.df.tolist()
@@ -167,7 +178,7 @@ class feature_computations():
                 maxa = xd
         return maxa 
     
-    # min to max standard deviation
+    # min to max ratio
     def minmaxrow(self):
         p1 = self.sizeofsmallestrow()
         p2 = self.sizeoflargestrow()
@@ -176,8 +187,8 @@ class feature_computations():
             return 0
         else: return p1/p2 
     
-    # min to size standard deviation
-    def minsdrow(self):
+    # min to size ratio
+    def minratiorow(self):
         p1 = self.sizeofsmallestrow()
         p2 = self.size
 
@@ -185,15 +196,26 @@ class feature_computations():
             return 0
         else: return p1/p2 
 
-    # max to size standard deviation
-    def maxsdrow(self):
+    # max to size ratio
+    def maxratiorow(self):
         p1 = self.sizeoflargestrow()
         p2 = self.size
 
         if (p1 ==0 or p2 ==0):
             return 0
-        else: return p1/p2   
+        else: return p1/p2
     
+    # standard deviation of row size to sample space 
+    # i.e. Domain Size
+    def sdsizerow(self):
+        p = self.df.tolist()
+        a = []
+        for x in p:
+            xd  = [i for i in x if i > 0]
+            a.append(len(xd))
+        sd = stats.tstd(a)
+        return sd
+
     # size of the smallest column
     def sizeofsmallestcolumn(self):
         #do same like row after transpose
@@ -217,7 +239,7 @@ class feature_computations():
         return maxa
 
     # standard deviation min column to size
-    def minsdcolumn(self):
+    def minratiocolumn(self):
         p1 = self.sizeofsmallestcolumn()
         p2 = self.size
 
@@ -233,6 +255,17 @@ class feature_computations():
         if (p1 ==0 or p2 ==0):
             return 0
         else: return p1/p2
+
+    # standard deviation of column size to sample space 
+    # i.e. Domain Size
+    def sdsizecolumn(self):
+        p = self.df.transpose().tolist()
+        a = []
+        for x in p:
+            xd  = [i for i in x if i > 0]
+            a.append(len(xd))
+        sd = stats.tstd(a)
+        return sd
     
     # Return True if all diagonals are filled 
     def diagonalmatrix(self):
@@ -641,4 +674,4 @@ if __name__ == "__main__":
             (1, 3, 4, 0),
             ( 2, 4, 0, 1)])
     model = feature_computations(hard, 4, "")
-    print(model.calculate_points())
+    print(model.sdsizecolumn())
