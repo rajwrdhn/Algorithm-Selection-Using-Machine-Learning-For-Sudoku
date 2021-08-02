@@ -20,22 +20,24 @@ class feature_computations():
         self.name_ = name_l
         self.order = int(math.sqrt(size))
 
+    # size of the puzzle N
     def sizeofpuzzle(self):
         return self.size
     
+    # Order of the puzzle root(N)
     def orderofpuzzle(self):
         a = math.sqrt(self.size)
         return a
     
-    # sum of all domain
+    # total sum of domain of the board
     def sumof(self):
         k = self.size * (self.size + 1)       
         return k/2
     
     # percent of filled cells
+    # check with probability of filled cells
     def percentofnumbers(self):
         counter = 0
-
         for i in range(self.size):
             for j in range(self.size):
                 if (self.df[i][j] > 0):
@@ -45,16 +47,11 @@ class feature_computations():
         else:
             per = 0  
         return per
-    # mean of puzzle
+
+    # mean/average of puzzle 
     def meanofpuzzle(self):
         a = np.mean(self.df)
         return a 
-    
-    # Not used
-    def medianofpuzzle(self):
-        k = np.where(np.array(self.df) > 0)        
-        m = np.median(k)
-        return m
 
     # This is not required, mean has been done.
     def averageofpuzzle(self):
@@ -89,7 +86,7 @@ class feature_computations():
                 subgrids.append(subgrid)
         return subgrids 
     
-    # smallest subgrid
+    # smallest subgrid size wrt number of elements from the domain
     def sizeofsmallestsubgrid(self):        
         p = self.getsubgrids()
         mina = self.size
@@ -99,7 +96,7 @@ class feature_computations():
                 mina = xd
         return mina
 
-    # largest subgrid 
+    # largest subgrid size wrt number of elements from the domain
     def sizeoflargestsubgrid(self):        
         p = self.getsubgrids()
         maxa = 0
@@ -119,11 +116,10 @@ class feature_computations():
     def rangemintotalsubgrid(self):
         p1 = self.sizeoflargestsubgrid()
         p2 = self.size
-
         return p2-p1
     
-    # sd of min from fullsize
-    def minsdsubgrid(self):
+    # ratio of min from fullsize
+    def minratiosubgrid(self):
         p1 = self.sizeofsmallestsubgrid()
         p2 = self.size
 
@@ -486,7 +482,25 @@ class feature_computations():
     
     def rangemultiplyminmaxsubgrid(self):
         m = self.multiplymaxsubgrid() - self.multiplyminsubgrid() 
-        return m  
+        return m 
+
+    # store multiplication of each row as a list for sd
+    def rowmultiplicationlist(self):
+        r = self.df.tolist() # row
+        c = self.df.transpose().tolist()
+        sg = self.getsubgrids()
+        mr = []
+        for x in r:
+            mr.append(self.listmul(x))
+        
+        mc = []
+        for x in c:
+            mc.append(self.listmul(x))
+
+        ms = []
+        for x in sg:
+            mc.append(self.listmul(x))
+        return mr, mc, ms  
     
     def sdminrowmultiply(self):
         return 0
@@ -619,3 +633,12 @@ class feature_computations():
             for j in range(self.size):
                 self.list_deepLearning.append(self.df[i][j])
         return self.list_deepLearning
+
+
+if __name__ == "__main__":
+    hard = np.array([ (3, 2, 0, 0),
+            (0, 0, 0, 0),
+            (1, 3, 4, 0),
+            ( 2, 4, 0, 1)])
+    model = feature_computations(hard, 4, "")
+    print(model.calculate_points())

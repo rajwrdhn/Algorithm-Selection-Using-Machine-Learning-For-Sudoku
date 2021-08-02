@@ -6,17 +6,11 @@ class TestFeatureMethods(unittest.TestCase):
     def test_sumof(self):
         self.assertEqual(model.sumof(), 10)
 
-    def test_percentofnumbers(self):
-        
+    def test_percentofnumbers(self):       
         self.assertEqual(model.percentofnumbers(), 50)
     
-    def test_meanofpuzzle(self):
-        
+    def test_meanofpuzzle(self):      
         self.assertEqual(model.meanofpuzzle(), 1.25)
-    
-    def test_medianofpuzzle(self):        
-        #self.assertEqual(model.medianofpuzzle(),2.5)
-        print(model.medianofpuzzle())
 
     def test_sumofnumbers(self):        
         self.assertEqual(model.sumofnumbers(), 20)
@@ -35,8 +29,8 @@ class TestFeatureMethods(unittest.TestCase):
     def test_rangeminmaxsubgrid(self):
         self.assertEqual(model.rangeminmaxsubgrid(), 4)
     
-    def test_minsdsubgrid(self):
-        self.assertEqual(model.minsdsubgrid(), 0)
+    def test_minratiosubgrid(self):
+        self.assertEqual(model.minratiosubgrid(), 0)
     
     def test_numberofsubgridsfilledcompletely(self):
         self.assertEqual(model.numberofsubgridsfilledcompletely(),1)
