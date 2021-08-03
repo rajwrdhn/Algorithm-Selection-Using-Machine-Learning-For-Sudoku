@@ -574,7 +574,7 @@ class feature_computations():
         sd = self.standarddevofmul(a)
         return sd
     
-    # sd for full board column multiply
+    # sd from full board column multiply
     def sdsubgridmultiply(self):
         a = self.subgridmultiplicationlist() # data for sd
         sd = self.standarddevofmul(a)
@@ -608,8 +608,9 @@ class feature_computations():
         a = np.unique(puzzle) 
         return len(a[a != 0])    
     
-    # least condition for a single solution
-    def least_condition_binary(self):
+    # least condition for a single solution 
+    # binary output discrete data
+    def leastconditionbinary(self):
         if (self.leastnumberforonesolution() >= self.size-1):
             return 1
         else: return 0
@@ -630,15 +631,20 @@ class feature_computations():
 
         return min(x1,x2,x3)
 
-    # Standard deviation of max clique
-    def getsdclique(self):
-        sd = self.getmaxclique()/self.size
-        return sd 
+    # range total min clique
+    def getrangeminclique(self):
+        r = self.size - self.getminclique()
+        return r 
     
-    # standard deviation of min clique
-    def getmincliquesd(self):
-        sd = self.getminclique() / self.size
-        return sd 
+    # range of total to max clique
+    def getrangemaxclique(self):
+        r = self.size - self.getmaxclique()
+        return r 
+    
+    # range min max clique
+    def getrangeminmaxclique(self):
+        r = self.getmaxclique() - self.getminclique()
+        return r
 
     # clique ratio
     def ratiominmaxclique(self):
@@ -647,7 +653,7 @@ class feature_computations():
 
     # range clique
     def rangeminmaxclique(self):
-        r = self.getminclique() - self.getmaxclique() 
+        r = self.getmaxclique() - self.getminclique() 
         return r
         
     #TODO: see helper below

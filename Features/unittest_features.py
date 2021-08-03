@@ -139,6 +139,30 @@ class TestFeatureMethods(unittest.TestCase):
 
     def test_multiplymincolumn(self):
         self.assertEqual(model.multiplymincolumn(),1)
+    
+    def test_rangeminmaxclique(self):
+        self.assertEqual(model.rangeminmaxclique(), 4)
+    
+    def test_ratiominmaxclique(self):
+        self.assertEqual(model.ratiominmaxclique(), 0)
+    
+    def test_rangemaxclique(self):
+        self.assertEqual(model.getrangemaxclique(), 0)
+    
+    def test_rangeminclique(self):
+        self.assertEqual(model.getrangeminclique(), 4)
+    
+    def test_rangeminmaxclique(self):
+        self.assertEqual(model.getrangeminmaxclique(), 4)
+
+    def test_getminclique(self):
+        self.assertEqual(model.getminclique(), 0)
+    
+    def test_getmaxclique(self):
+        self.assertEqual(model.getmaxclique(), 4)
+    
+    def test_leastconditionbinary(self):
+        self.assertEqual(model.leastconditionbinary(), 1)
 
 if __name__ == '__main__':
     hard = np.array([ (3, 2, 0, 0),
