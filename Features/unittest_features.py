@@ -135,7 +135,7 @@ class TestFeatureMethods(unittest.TestCase):
         self.assertEqual(model.multiplymaxcolumn(), 24)
 
     def test_multiplyminrow(self):
-        self.assertEqual(model.multiplyminrow(), 1)
+        self.assertEqual(model.multiplyminrow(), 0)
 
     def test_multiplymincolumn(self):
         self.assertEqual(model.multiplymincolumn(),1)

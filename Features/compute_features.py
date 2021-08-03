@@ -466,9 +466,13 @@ class feature_computations():
     # helper for multiplication 
     def listmul(self, x):
         res = 1
-        for a in x:
-            if (a > 0):
-                res = res * a
+        k = all(element == x[0] for element in x)
+        if k:
+            return 0
+        else:             
+            for a in x:
+                if (a > 0):
+                    res = res * a
         return res
 
     # max of multiplication of column
@@ -479,6 +483,7 @@ class feature_computations():
             m.append(self.listmul(x)) 
         return max(m)
     
+    # max of multiplication of subgrid
     def multiplymaxsubgrid(self):
         a = self.getsubgrids()
         m =[]
@@ -486,6 +491,7 @@ class feature_computations():
             m.append(self.listmul(x))
         return max(m)
     
+    # min multiplication of row
     def multiplyminrow(self):
         a = self.df.tolist()
         m = []
@@ -493,6 +499,7 @@ class feature_computations():
             m.append(self.listmul(x))
         return min(m)
     
+    # min multiplication of column
     def multiplymincolumn(self):
         a = self.df.transpose().tolist()
         m = []
@@ -500,6 +507,7 @@ class feature_computations():
             m.append(self.listmul(x))  
         return min(m)
     
+    # min multiplication of subgrid
     def multiplyminsubgrid(self):
         a = self.getsubgrids() 
         m = []
@@ -507,14 +515,17 @@ class feature_computations():
             m.append(self.listmul(x))
         return min(m)
     
+    # range max to min row
     def rangemultiplyminmaxrow(self):
         m = self.multiplymaxrow() - self.multiplyminrow() 
         return m  
     
+    # range max to min column
     def rangemultiplyminmaxcolumn(self):
         m = self.multiplymaxcolumn() - self.multiplymincolumn() 
         return m  
     
+    # range max min subgrid
     def rangemultiplyminmaxsubgrid(self):
         m = self.multiplymaxsubgrid() - self.multiplyminsubgrid() 
         return m 
@@ -529,8 +540,7 @@ class feature_computations():
 
     # store multiplication of each column as a list for sd
     def columnmultiplicationlist(self):
-        c = self.df.transpose().tolist()
-        
+        c = self.df.transpose().tolist()        
         mc = []
         for x in c:
             mc.append(self.listmul(x))
@@ -540,37 +550,39 @@ class feature_computations():
     # store multiplication of each subgrid as a list for sd
     def subgridmultiplicationlist(self):
         sg = self.getsubgrids()
-
         ms = []
         for x in sg:
             ms.append(self.listmul(x))
         return ms
 
-    # sudoku board multiplication for size
+    # sudoku board multiplication full size
     def multiplyof(self):
         res = 1 
         for i in range(self.size):
             res = res * (i+1)
         return res  
     
-    def sdminrowmultiply(self):
-        return 0
+    # sd for full board row multiply
+    def sdrowmultiply(self):
+        a = self.rowmultiplicationlist() # data for sd
+        sd = self.standarddevofmul(a)
+        return sd
     
-    def sdmaxrowmultiply(self):
-        return 0
+    # sd for full board column multiply
+    def sdcolumnmultiply(self):
+        a = self.columnmultiplicationlist() # data for sd
+        sd = self.standarddevofmul(a)
+        return sd
     
-    def sdmincolumnmultiply(self):
-        return 0
-    
-    def sdmaxcolumnmultiply(self):
-        return 0
-    
-    def sdminsubgridmultiply(self):
-        return 0
-    
-    def sdmaxsubgridmultiply(self):
-        return 0
+    # sd for full board column multiply
+    def sdsubgridmultiply(self):
+        a = self.subgridmultiplicationlist() # data for sd
+        sd = self.standarddevofmul(a)
+        return sd
 
+    # mode of the sudoku board can have many numbers
+    # is it okay to use it?
+    #TODO: figure out wether to use it or not.
     def highestoccurrenceofnumber(self):
         a = self.df
         s = a[a>0]
@@ -596,14 +608,11 @@ class feature_computations():
         a = np.unique(puzzle) 
         return len(a[a != 0])    
     
-    # Done least condition for a single solution
+    # least condition for a single solution
     def least_condition_binary(self):
         if (self.leastnumberforonesolution() >= self.size-1):
             return 1
         else: return 0
-
-
-
 
     # Done max clique gcp of sudoku
     def getmaxclique(self):
@@ -684,6 +693,21 @@ class feature_computations():
             for j in range(self.size):
                 self.list_deepLearning.append(self.df[i][j])
         return self.list_deepLearning
+    
+    def meanofmul(self):
+        m = self.multiplyof()
+        return m
+    
+    def varianceofmul(self, data):
+        m = self.meanofmul()
+        n = self.size
+        deviations = [(x - m) ** 2 for x in data]    
+        v = sum(deviations) / n
+        return v
+
+    def standarddevofmul(self, data):
+        sd = math.sqrt(self.varianceofmul(data))
+        return sd  
 
 
 if __name__ == "__main__":
@@ -692,4 +716,4 @@ if __name__ == "__main__":
             (1, 3, 4, 0),
             ( 2, 4, 0, 1)])
     model = feature_computations(hard, 4, "")
-    print(model.multiplyof())
+    print(model.highestoccurrenceofnumber())
