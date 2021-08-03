@@ -650,11 +650,6 @@ class feature_computations():
     def ratiominmaxclique(self):
         r = self.getminclique() / self.getmaxclique() 
         return r
-
-    # range clique
-    def rangeminmaxclique(self):
-        r = self.getmaxclique() - self.getminclique() 
-        return r
         
     #TODO: see helper below
     def calculateedgesnumber(self):
@@ -714,6 +709,21 @@ class feature_computations():
     def standarddevofmul(self, data):
         sd = math.sqrt(self.varianceofmul(data))
         return sd  
+    
+    def meanofadd(self):
+        m = self.sumof()
+        return m
+    
+    def varianceofadd(self, data):
+        m = self.meanofadd()
+        n = self.size
+        deviations = [(x - m) ** 2 for x in data]    
+        v = sum(deviations) / n
+        return v
+
+    def standarddevofadd(self, data):
+        sd = math.sqrt(self.varianceofadd(data))
+        return sd 
 
 
 if __name__ == "__main__":
