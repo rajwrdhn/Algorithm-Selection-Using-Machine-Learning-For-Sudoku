@@ -7,6 +7,7 @@ import pandas as pd
 from scipy import stats
 import scipy
 from scipy.spatial import distance
+import statistics
 from statistics import stdev
 
 
@@ -601,7 +602,7 @@ class feature_computations():
             return min(s, key=s.count)
         else: return 0
 
-    #Done helper for least condition for one solution
+    # helper for least condition for one solution
     def leastnumberforonesolution(self):
         """Contains atleast one less from the domain set of size!"""
         puzzle = self.df 
@@ -724,7 +725,79 @@ class feature_computations():
     def standarddevofadd(self, data):
         sd = math.sqrt(self.varianceofadd(data))
         return sd 
+    
+    # store addition of each row as a list for sd
+    def rowadditionlist(self):
+        r = self.df.tolist() # row
+        mr = []
+        for x in r:
+            mr.append(self.listadd(x))
+        return mr
 
+    # store addition of each column as a list for sd
+    def columnadditionlist(self):
+        c = self.df.transpose().tolist()        
+        mc = []
+        for x in c:
+            mc.append(self.listadd(x))
+
+        return mc  
+
+    # store addition of each subgrid as a list for sd
+    def subgridadditionlist(self):
+        sg = self.getsubgrids()
+        ms = []
+        for x in sg:
+            ms.append(self.listadd(x))
+        return ms
+    
+    # helper for additon
+    def listadd(self, data):
+        res = 0 
+        for x in data:
+            res = res + x
+        return res
+    
+    def sdrowaddition(self):
+        a = self.rowadditionlist()
+        sd = self.standarddevofadd(a)
+        return sd
+
+    def sdcolumnaddition(self):
+        a = self.columnadditionlist()
+        sd = self.standarddevofadd(a)
+        return sd
+
+    def sdsubgridaddition(self):
+        a = self.subgridadditionlist()
+        sd = self.standarddevofadd(a)
+        return sd
+    
+    # maximum frequency mode of the number present 
+    # in the puzzle from the domain
+    def maxofnumber(self):
+        #print(self.df[self.df>0])
+        a = self.df[self.df>0].tolist()
+        b = max(a,key=a.count)
+        c = self.occurence(a,b)
+        return b, c
+    
+    # minimum frquency mode of the number present 
+    # in the puzzle from the domain
+    def minofnumber(self):
+        #print(self.df[self.df>0])
+        a = self.df[self.df>0].tolist()
+        b = min(a,key=a.count)
+        c = self.occurence(a,b)
+        return b, c
+    
+    # occurence of a number in a list
+    def occurence(self, lst,x):
+        count=0
+        for i in lst:
+            if (i==x):
+                count=count+1
+        return count
 
 if __name__ == "__main__":
     hard = np.array([ (3, 2, 0, 0),
@@ -732,4 +805,4 @@ if __name__ == "__main__":
             (1, 3, 4, 0),
             ( 2, 4, 0, 1)])
     model = feature_computations(hard, 4, "")
-    print(model.highestoccurrenceofnumber())
+    print(model.maxofnumber())
