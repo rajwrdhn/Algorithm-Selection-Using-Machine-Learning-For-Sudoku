@@ -33,12 +33,9 @@ def call_feature_computation_class(df_np , N,  j,k, i):
         name_puzzle = "benchmark_puzzles/benchmarks%dx%d/%d/puzzle%d.txt" %(k,k,i,j)
         size_puzzle = model.sizeofpuzzle()
         order_puzzle = model.orderofpuzzle()
-        median_puzzle = model.medianofpuzzle()
-        mode_puzzle = model.modeofpuzzle()
         mean_puzzle = model.meanofpuzzle()
         total_sum = model.sumofnumbers()        
         percent_puzzle = model.percentofnumbers()
-        manhattan_puzzle = model.manhattandistance()
         smallest_row = model.sizeofsmallestrow()
         largest_row = model.sizeoflargestrow()
         smallest_column = model.sizeofsmallestcolumn()
@@ -84,7 +81,6 @@ def call_feature_computation_class(df_np , N,  j,k, i):
         df_add = df_add.append({ 'name_puzzle' :name_puzzle, 
             'size_puzzle':size_puzzle,
             'order_puzzle':order_puzzle,
-            'median_puzzle':median_puzzle,
             #'mode_puzzle':mode_puzzle,
             'mean_puzzle':mean_puzzle, 
             #'total_sum':total_sum,
