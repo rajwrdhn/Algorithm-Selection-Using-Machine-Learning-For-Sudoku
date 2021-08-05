@@ -24,7 +24,6 @@ def load_path():
     return df_np, N 
 
 def call_feature_computation_class(df_np , N,  j,k, i):
-    #colum = ['col1','col2','col3','col4','col5','col6','col7','col8', 'col9', 'col10', ]
     df_add = pd.DataFrame()
     if N>0 :
         import compute_features
@@ -33,8 +32,7 @@ def call_feature_computation_class(df_np , N,  j,k, i):
         name_puzzle = "benchmark_puzzles/benchmarks%dx%d/%d/puzzle%d.txt" %(k,k,i,j)
         size_puzzle = model.sizeofpuzzle()
         order_puzzle = model.orderofpuzzle()
-        mean_puzzle = model.meanofpuzzle()
-        total_sum = model.sumofnumbers()        
+        mean_puzzle = model.meanofpuzzle()      
         percent_puzzle = model.percentofnumbers()
         smallest_row = model.sizeofsmallestrow()
         largest_row = model.sizeoflargestrow()
@@ -81,9 +79,7 @@ def call_feature_computation_class(df_np , N,  j,k, i):
         df_add = df_add.append({ 'name_puzzle' :name_puzzle, 
             'size_puzzle':size_puzzle,
             'order_puzzle':order_puzzle,
-            #'mode_puzzle':mode_puzzle,
             'mean_puzzle':mean_puzzle, 
-            #'total_sum':total_sum,
             'percent_puzzle':percent_puzzle,
             'smallest_row':smallest_row,
             'largest_row':largest_row,
