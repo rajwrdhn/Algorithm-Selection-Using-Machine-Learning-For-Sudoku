@@ -4,7 +4,7 @@ lis_or: list = [[]]
 def method_iter():
 
     for i in range(3,10): 
-        for j in range(0,105,5): 
+        for j in range(5,100,5): 
             for k in range(1,21,1):
                 if os.path.exists("/home/raj/Music/SudokuSolvers/Python/data/benchmark_puzzles/benchmarks%dx%d/%d/ortool%d.txt" %(i,i,j,k)):
                     f = open("/home/raj/Music/SudokuSolvers/Python/data/benchmark_puzzles/benchmarks%dx%d/%d/ortool%d.txt" %(i,i,j,k),"r")
@@ -31,5 +31,7 @@ def method_iter():
                     
 method_iter()
 df = pandas.DataFrame(lis_or, columns=['name', 'time', 'algo'])
-df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/ortime.csv',index=False)
-#print(df)
+d = df[df.time <= 3600].groupby('name').mean()
+d.to_csv('/home/raj/Music/SudokuSolvers/read_time/or/ortime.csv',index=True)
+#print(df[df.time <= 3600].groupby('name').mean().describe())
+print(d)

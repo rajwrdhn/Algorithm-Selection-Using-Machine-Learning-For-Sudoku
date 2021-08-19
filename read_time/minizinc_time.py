@@ -4,7 +4,7 @@ dict_chuf: list = [[]]
 def method_iter():
     lis_or = []
     for i in range(3,10): 
-        for j in range(0,105,5): 
+        for j in range(5,100,5): 
             for k in range(1,21):
                 if os.path.exists("/home/raj/Music/MiniZincIDE-2.4.3-bundle-linux-x86_64/bin/benchmark_puzzles/benchmarks%dx%d/%d/chuf%d.dzn" %(i,i,j,k)):
                     f = open("/home/raj/Music/MiniZincIDE-2.4.3-bundle-linux-x86_64/bin/benchmark_puzzles/benchmarks%dx%d/%d/chuf%d.dzn" %(i,i,j,k),"r")
@@ -25,4 +25,7 @@ def method_iter():
                     
 method_iter()
 df = pandas.DataFrame(dict_chuf, columns=['name', 'time', 'algo'])
-df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/chuftime.csv',index=False)
+d = df[df.time <= 3600].groupby('name').mean()
+d.to_csv('/home/raj/Music/SudokuSolvers/read_time/chuffed/chuftime.csv',index=True)
+#print(df[df.time <= 3600].groupby('name').mean().describe())
+print(d)
