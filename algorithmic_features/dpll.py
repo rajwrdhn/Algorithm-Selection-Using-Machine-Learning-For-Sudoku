@@ -49,7 +49,7 @@ def get_cnf(size):
                 continue
             d = int(y) - 1
             cnf.append([vars[i, j, d]])
-    print(cnf)
+    #print(cnf)
     
     return [list(x) for x in cnf]
 

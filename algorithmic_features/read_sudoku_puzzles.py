@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np 
 import math 
 from datetime import datetime 
+import time
 import os 
 from csv import writer
 
@@ -11,7 +12,7 @@ OUTPUT_BASEPATH = 'output'
 
 #Loads the puzzles from the dataset
 def load_path():
-    for k in range(3,9):
+    for k in range(9,10):
         for i in range(20, 25, 5):        
             for j in range(1,2):
                 sta = 'puzzle' + str(j)            
@@ -25,13 +26,15 @@ def load_path():
 
 def call_feature_computation_class(df_np , N,  j,k, i):
     #todays_date = datetime.datetime.now().date()
-    colum = ['col1','col2','col3','col4','col5','col6','col7','col8', 'col9', 'col10']
-    df_add = pd.DataFrame(columns = colum)
+    #colum = ['col1','col2','col3','col4','col5','col6','col7','col8', 'col9', 'col10']
+    #df_add = pd.DataFrame(columns = colum)
     if N>0 :
         import dpll_probe
         #print(df_np)
         model = dpll_probe.Dpll(df_np, N, "benchmark_puzzles/benchmarks%dx%d/%d/puzzle%d.txt" %(k,k,i,j))        
+        dt = time.time()
         print(model.numberofclauses(N))
+        print(time.time()-dt)
         #x0 = "benchmark_puzzles/benchmarks%dx%d/%d/puzzle%d.txt" %(k,k,i,j)
         #x1 = model.add_MeanofPuzzle()
         #x2 = model.add_MedianOfPuzzle()
@@ -75,8 +78,9 @@ def encode_sudoku_to_numpy(df , N):
 def main():
     #start here
     #load the path and iterate through all the instances to get the features
+    #compute the time here 
     df_np, N = load_path()
     #print(N, df_np)
 
-if __name__ == "__main__":
+if __name__ == "__main__":  
     main() 

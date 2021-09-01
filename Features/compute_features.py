@@ -9,7 +9,8 @@ import scipy
 from scipy.spatial import distance
 import statistics
 from statistics import stdev
-
+#import exact-cover as ec
+#import xudoku
 
 class feature_computations():
     """ This class computes features related to the 
@@ -24,17 +25,17 @@ class feature_computations():
 
     # size of the puzzle N
     def sizeofpuzzle(self):
-        return self.size
+        return int(self.size)
     
     # Order of the puzzle root(N)
     def orderofpuzzle(self):
         a = math.sqrt(self.size)
-        return a
+        return int(a)
     
     # total sum of domain of the board
     def sumof(self):
         k = self.size * (self.size + 1)       
-        return k/2
+        return int(k/2)
     
     # percent of filled cells
     # check with probability of filled cells
@@ -50,7 +51,7 @@ class feature_computations():
             per = 0  
         return per
 
-    # mean/average of puzzle 
+    # mean/average of puzzle w.r.t. sum 
     def meanofpuzzle(self):
         a = np.mean(self.df)
         return a 
@@ -63,7 +64,7 @@ class feature_computations():
     # Sum of all the numbers in the puzzle
     def sumofnumbers(self):
         s = np.sum(self.df)
-        return s
+        return int(s)
 
     # not needed at the moment
     def percentilepuzzle(self):
@@ -96,7 +97,7 @@ class feature_computations():
             xd = sum(i > 0 for i in x)
             if (xd < mina):
                 mina = xd
-        return mina
+        return int(mina)
 
     # largest subgrid size wrt number of elements from the domain
     def sizeoflargestsubgrid(self):        
@@ -106,26 +107,35 @@ class feature_computations():
             xd = sum(i > 0 for i in x)
             if (xd > maxa):
                 maxa = xd
-        return maxa
+        return int(maxa)
+    
+
+    # min isto max ratio subgrid size
+    def minmaxsubgrid(self):
+        p1 = self.sizeofsmallestsubgrid()
+        p2 = self.sizeoflargestsubgrid()
+        if p1==0 or p2==0:
+            return 0
+        else: return p1/p2
     
     # min isto max range subgrid size
     def rangeminmaxsubgrid(self):
         p1 = self.sizeofsmallestsubgrid()
         p2 = self.sizeoflargestsubgrid()
-        return p2-p1
+        return int(p2-p1)
     
-    # max vs total range for subgrid
+    # min vs total range for subgrid
     def rangemintotalsubgrid(self):
         p1 = self.sizeoflargestsubgrid()
         p2 = self.size
-        return p2-p1
+        return int(p2-p1)
     
     # ratio of min from fullsize
     def minratiosubgrid(self):
         p1 = self.sizeofsmallestsubgrid()
         p2 = self.size
 
-        if (p1 ==0 or p2 ==0):
+        if (p1 ==0):
             return 0
         else: return p1/p2
 
@@ -137,7 +147,7 @@ class feature_computations():
             xd = [i for i in x if i > 0]
             if (len(xd) == self.size):
                 count += 1
-        return count
+        return int(count)
     
     # completely empty subgrids
     def numberofsubgridsempty(self):
@@ -147,7 +157,7 @@ class feature_computations():
             xd = [i for i in x if i==0]
             if (len(xd)==self.size):
                 count += 1
-        return count 
+        return int(count) 
 
     # size subgrid standard deviation
     def sdsizesubgrid(self):
@@ -167,7 +177,7 @@ class feature_computations():
             xd = sum(i > 0 for i in x)
             if (xd < mina):
                 mina = xd
-        return mina
+        return int(mina)
     
     # largest row size
     def sizeoflargestrow(self):
@@ -177,7 +187,7 @@ class feature_computations():
             xd = sum(i > 0 for i in x)
             if (xd > maxa):
                 maxa = xd
-        return maxa 
+        return int(maxa) 
     
     # min to max ratio
     def minmaxrow(self):
@@ -226,7 +236,7 @@ class feature_computations():
             xd = sum(i > 0 for i in x)
             if (xd < mina):
                 mina = xd
-        return mina
+        return int(mina)
     
     # largest column size
     def sizeoflargestcolumn(self):
@@ -237,7 +247,7 @@ class feature_computations():
             xd = sum(i > 0 for i in x)
             if (xd > maxa):
                 maxa = xd
-        return maxa
+        return int(maxa)
 
     # standard deviation min column to size
     def minratiocolumn(self):
@@ -275,7 +285,8 @@ class feature_computations():
         for i in range(self.size):
             if (d[i][i] > 0):
                 count = count+ 1         
-        return count == self.size
+        if count == self.size: return int(count),1
+        else: return int(count), 0
     
     # Number of columns completely filled
     def numberofcolumnsfilledcompletely(self):
@@ -285,7 +296,7 @@ class feature_computations():
             xd = [i for i in x if i > 0]
             if (len(xd) == self.size):
                 count += 1
-        return count
+        return int(count)
     
     # Number of rows completely filled
     def numberofrowsfilledcompletely(self):
@@ -296,7 +307,7 @@ class feature_computations():
             if (len(xd) == self.size):
                 count += 1
 
-        return count
+        return int(count)
     
     # number of empty rows
     def numberofrowsempty(self):
@@ -307,7 +318,7 @@ class feature_computations():
             if (len(xd) == self.size):
                 count += 1
 
-        return count
+        return int(count)
     
     # number of empty columns
     def numberofcolumnsempty(self):
@@ -317,9 +328,10 @@ class feature_computations():
             xd = [i for i in x if i == 0]
             if (len(xd) == self.size):
                 count += 1
-        return count
+        return int(count)
     
     # sum of numbers on the sudoku board ratio and range
+    #TODO in the main
     def totalsumofnumbersrr(self): #ratio and range from sum, sum and total sum
         a = self.df.sum()
         su = 0
@@ -329,7 +341,7 @@ class feature_computations():
 
         r = su - a #range
         ra = a/su #ratio
-        return r, ra
+        return int(r), ra
 
     # subgrid sum least
     def leastsubgridsum(self):
@@ -337,7 +349,7 @@ class feature_computations():
         su = []
         for x in a:
             su.append(sum(x))    
-        return min(su)
+        return int(min(su))
 
     # highest sum of subgrid
     def highestsubgridsum(self):
@@ -345,7 +357,7 @@ class feature_computations():
         su = []
         for x in a:
             su.append(sum(x))
-        return max(su)
+        return int(max(su))
     
     # least to highest ratio
     def leasthighestsubgrid(self):
@@ -380,7 +392,7 @@ class feature_computations():
         for x in a:
             su.append(sum(x))
         
-        return min(su)
+        return int(min(su))
 
     # highest sum of the rows
     def highestrowsum(self):
@@ -388,7 +400,7 @@ class feature_computations():
         su = [] 
         for x in a:
             su.append(sum(x))
-        return max(su)
+        return int(max(su))
     
     # least highest ratio
     def leasthighestrow(self):
@@ -420,7 +432,7 @@ class feature_computations():
         su = [] 
         for x in a:
             su.append(sum(x))
-        return max(su)
+        return int(max(su))
 
     # least column sum
     def leastcolumnsum(self):        
@@ -428,7 +440,7 @@ class feature_computations():
         su = [] 
         for x in a:
             su.append(sum(x))
-        return min(su)
+        return int(min(su))
 
     # least isto highest ratio column sum
     def leasthighestcolumn(self):
@@ -462,7 +474,7 @@ class feature_computations():
         m = []
         for x in a:
             m.append(self.listmul(x)) 
-        return max(m)
+        return int(max(m))
 
     # helper for multiplication 
     def listmul(self, x):
@@ -482,7 +494,7 @@ class feature_computations():
         m = []
         for x in a:
             m.append(self.listmul(x)) 
-        return max(m)
+        return int(max(m))
     
     # max of multiplication of subgrid
     def multiplymaxsubgrid(self):
@@ -490,7 +502,7 @@ class feature_computations():
         m =[]
         for x in a:
             m.append(self.listmul(x))
-        return max(m)
+        return int(max(m))
     
     # min multiplication of row
     def multiplyminrow(self):
@@ -506,7 +518,7 @@ class feature_computations():
         m = []
         for x in a:
             m.append(self.listmul(x))  
-        return min(m)
+        return int(min(m))
     
     # min multiplication of subgrid
     def multiplyminsubgrid(self):
@@ -514,22 +526,22 @@ class feature_computations():
         m = []
         for x in a:
             m.append(self.listmul(x))
-        return min(m)
+        return int(min(m))
     
     # range max to min row
     def rangemultiplyminmaxrow(self):
         m = self.multiplymaxrow() - self.multiplyminrow() 
-        return m  
+        return int(m)  
     
     # range max to min column
     def rangemultiplyminmaxcolumn(self):
         m = self.multiplymaxcolumn() - self.multiplymincolumn() 
-        return m  
+        return int(m)  
     
     # range max min subgrid
     def rangemultiplyminmaxsubgrid(self):
         m = self.multiplymaxsubgrid() - self.multiplyminsubgrid() 
-        return m 
+        return int(m) 
 
     # store multiplication of each row as a list for sd
     def rowmultiplicationlist(self):
@@ -561,7 +573,7 @@ class feature_computations():
         res = 1 
         for i in range(self.size):
             res = res * (i+1)
-        return res  
+        return int(res)  
     
     # sd for full board row multiply
     def sdrowmultiply(self):
@@ -591,7 +603,7 @@ class feature_computations():
         t = np.bincount(s)
         #print(t)
         if (t.size):
-            return np.argmax(t)
+            return int(np.argmax(t))
         else: return 0
     
     #TODO: only one is being presented, not 2, same above
@@ -599,7 +611,7 @@ class feature_computations():
         a = self.df
         s = a[a>0].tolist()
         if len(s):
-            return min(s, key=s.count)
+            return int(min(s, key=s.count))
         else: return 0
 
     # helper for least condition for one solution
@@ -622,7 +634,7 @@ class feature_computations():
         x2 = self.sizeoflargestrow()
         x3 = self.sizeoflargestsubgrid()
 
-        return max(x1,x2,x3)
+        return int(max(x1,x2,x3))
     
     # min clique gcp of sudoku
     def getminclique(self):
@@ -630,22 +642,22 @@ class feature_computations():
         x2 = self.sizeofsmallestrow()
         x3 = self.sizeofsmallestsubgrid()
 
-        return min(x1,x2,x3)
+        return int(min(x1,x2,x3))
 
     # range total min clique
     def getrangeminclique(self):
         r = self.size - self.getminclique()
-        return r 
+        return int(r) 
     
     # range of total to max clique
     def getrangemaxclique(self):
         r = self.size - self.getmaxclique()
-        return r 
+        return int(r) 
     
     # range min max clique
     def getrangeminmaxclique(self):
         r = self.getmaxclique() - self.getminclique()
-        return r
+        return int(r)
 
     # clique ratio
     def ratiominmaxclique(self):
@@ -780,7 +792,7 @@ class feature_computations():
         a = self.df[self.df>0].tolist()
         b = max(a,key=a.count)
         c = self.occurence(a,b)
-        return b, c
+        return int(b), int(c)
     
     # minimum frquency mode of the number present 
     # in the puzzle from the domain
@@ -789,7 +801,7 @@ class feature_computations():
         a = self.df[self.df>0].tolist()
         b = min(a,key=a.count)
         c = self.occurence(a,b)
-        return b, c
+        return int(b), int(c)
     
     # occurence of a number in a list
     def occurence(self, lst,x):
@@ -797,12 +809,98 @@ class feature_computations():
         for i in lst:
             if (i==x):
                 count=count+1
-        return count
+        return int(count)
+    
+    #count the total number of edges for the full sudoku
+    def totaledges(self):
+        d = self.maxdegree()
+        e = int(d*(self.size*self.size)/2)
+        return int(e)
+    
+    #calculate the max degree in the full sudoku
+    def maxdegree(self):
+        n = self.order
+        #(3n + 1)(n − 1)
+        md = (3*n + 1)*(n-1)
+        return int(md)
+
+    # total numbers in the puzzle
+    # number nodes for the partial graph
+    def numnodes(self):
+        counter = 0
+        for i in range(self.size):
+            for j in range(self.size):
+                if (self.df[i][j] > 0):
+                    counter += 1 
+        
+        return int(counter)
+    
+    # missing numbers from the puzzle
+    def missingnodes(self):
+        counter = 0
+        for i in range(self.size):
+            for j in range(self.size):
+                if (self.df[i][j] == 0):
+                    counter += 1
+
+        return int(counter)
+    
+    # max total number of edges for partial sudoku graph
+    def maxnumedges(self):
+        ne = (self.maxdegree() * self.numnodes()/2)
+        return int(ne)
+    
+    # max missing number of edges for partial sudoku graph
+    def maxmissingnumedges(self):
+        ne = (self.maxdegree() * self.missingnodes()/2)
+        return math.ceil(ne)
+    
+    # max degree for partial sudoku graph
+
+    # set cover yes or no 
+    # when 0 then its not a cover
+    def setcover(self):
+        a = np.unique(self.df)
+        b = len(a) - 1
+        if b == self.size:
+            return 1
+        else:
+            return 0
+
+    # min exact cover
+    # minimum number of disjoint sets that make up the whole domain
+
+
+    # number of elements from the domain
+    def numdomain(self):
+        a = np.unique(self.df)
+        b = len(a) - 1
+        return int(b)
+    
+    # missing count of domain
+    def missingdomain(self):
+        a = self.size
+        b = self.numdomain()
+        return int(a-b)
+    
+    def interquartilerangeforsudoku(self):
+        a = stats.iqr(self.df)
+        return a
 
 if __name__ == "__main__":
     hard = np.array([ (3, 2, 0, 0),
             (0, 0, 0, 0),
-            (1, 3, 4, 0),
+            (1, 3, 0, 0),
             ( 2, 4, 0, 1)])
     model = feature_computations(hard, 4, "")
-    print(model.maxofnumber())
+    print(model.maxdegree())
+    print(model.totaledges())
+    print(model.setcover())
+    print(model.numdomain())
+    print(model.missingnodes())
+    print(model.maxnumedges())
+    print(model.numnodes())
+    print(model.meanofpuzzle())
+    print(model.averageofpuzzle())
+    print(model.maxmissingnumedges())
+    print(model.interquartilerangeforsudoku())
