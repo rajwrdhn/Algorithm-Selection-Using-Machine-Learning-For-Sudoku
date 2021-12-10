@@ -3,28 +3,36 @@ import pandas as pd
 
 
 df1 = pd.read_csv("/home/raj/Music/SudokuSolvers/read_time/sa/satime.csv", )
+df1 = df1[df1['time'] < 3600]
+df1 =df1[df1['order_puzzle']==5]
+print(df1['time'].describe())
 df1 = df1.fillna(0)
 df1['algo'] = 'sima'
 df1['comtime'] = df1['time']
 
 df2 = pd.read_csv("/home/raj/Music/SudokuSolvers/read_time/or/ortime.csv")
+df2 = df2[df2['time'] < 3600]
 df2 = df2.fillna(0)
 df2['algo'] = 'ortl'
 df2['comtime'] = df2['time']
 
 df3 = pd.read_csv("/home/raj/Music/SudokuSolvers/read_time/chuffed/chuftime.csv")
+df3 = df3[df3['time'] < 3600]
 df3 = df3.fillna(0)
 df3['algo'] = 'chuf'
 
 df4 = pd.read_csv("/home/raj/Music/SudokuSolvers/read_time/cplex/cplextime.csv")
+df4 = df4[df4['time'] < 3600]
 df4 = df4.fillna(0)
 df4['algo'] = 'cplex'
 
 df5 = pd.read_csv("/home/raj/Music/SudokuSolvers/read_time/gurobi/gurobitime.csv")
+df5 = df5[df5['time'] < 3600]
 df5 = df5.fillna(0)
 df5['algo'] = 'gurobi'
 
 df6 = pd.read_csv("/home/raj/Music/SudokuSolvers/read_time/hybrid/hyilstime.csv")
+df6 = df6[df6['time'] < 3600]
 df6 = df6.fillna(0)
 df6['algo'] = 'hyils'
 df6['comtime'] = df6['time']
@@ -34,32 +42,26 @@ df7 = df7.fillna(0)
 df8 = df3.merge(df7)
 df9 = df8[['name','comtime','algo']]
 
-df10 = pd.read_csv("/home/raj/Music/SudokuSolvers/read_time/cplex/cptime.csv")
-df10 = df10.fillna(0)
-df11 = df4.merge(df10)
-df12 = df11[['name','comtime','algo']]
 
-df13 = pd.read_csv("/home/raj/Music/SudokuSolvers/read_time/gurobi/gutime.csv")
-df13 = df13.fillna(0)
-df14 = df5.merge(df13)
-df15 = df14[['name','comtime','algo']]
-
-kf = pd.concat([df1,df2,df6,df9,df12,df15])
-print(kf['algo'].value_counts())
+kf = pd.concat([df1,df2,df6,df9])
+#print(kf)
+#print(kf['algo'].value_counts())
 kf['al'] = kf['algo']
 #print(kf.iloc[:3])
 #kf = kf['time'].isnull()
 #kf = kf.iloc[:3]
 kf = kf.set_index('al')
-kf = kf.drop(['cplex', 'gurobi', 'sima'])
+kf = kf.drop(['sima'])
 #print(kf)
 sdf = kf.sort_values(by=['name','comtime']).drop_duplicates(['name'], keep='first')
-#print(sdf)
+print(sdf)
 #sdf['nam'] = sdf['name']
 #sdf = sdf.set_index('nam')
 sdf = sdf[sdf.columns.drop(list(sdf.filter(regex='benchmarks3x3')))]
-#print(sdf)
+print(sdf)
 print(sdf['algo'].value_counts())
+#print('hi')
+#print(sdf)
 #sdf.to_csv("/home/raj/Music/SudokuSolvers/read_time/t.csv")
 
 #d = pd.read_csv("/home/raj/Music/SudokuSolvers/read_time/t.csv") 
@@ -72,11 +74,12 @@ df = pd.concat([df1,df2,df3,df4,df5,df6])
 #print(df.loc[df.groupby('name').time.idxmin()])
 #print(df)
 ldf = df.sort_values(by=['name','time']).drop_duplicates(['name'], keep='first')
-print(ldf['algo'].value_counts())
+#print(ldf['algo'].value_counts())
+#print(ldf)
 #j = df.merge(kf, how = 'outer' ,indicator=True).loc[lambda x : x['_merge']=='left_only']
 
 #Fill all NaN values with 0
-df = df.fillna(0)
+#df = df.fillna(0)
 #print(df)
 
 #print the number of of solved instances from total 

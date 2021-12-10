@@ -1,6 +1,7 @@
 #!usr/var/python3
 import os
 import math
+import sys
 import numpy as np
 import matplotlib
 import pandas as pd 
@@ -590,6 +591,7 @@ class feature_computations():
     # sd from full board column multiply
     def sdsubgridmultiply(self):
         a = self.subgridmultiplicationlist() # data for sd
+        print(a)
         sd = self.standarddevofmul(a)
         return sd
 
@@ -904,3 +906,5 @@ if __name__ == "__main__":
     print(model.averageofpuzzle())
     print(model.maxmissingnumedges())
     print(model.interquartilerangeforsudoku())
+    print(model.highestoccurrenceofnumber())
+    print(model.lowestoccurrenceofnumber())

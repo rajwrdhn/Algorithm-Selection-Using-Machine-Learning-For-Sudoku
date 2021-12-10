@@ -33,11 +33,11 @@ def method_iter():
                     except: #pass
                         print("benchmark_puzzles/benchmarks%dx%d/%d/puzzle%d.txt" %(i,i,j,k))
 method_iter()
-df = pandas.DataFrame(dict_chuf, columns=['name', 'pathschuf', 'flatintvarschuf','flatintconstraintschuf','flattimechuf'])
+df = pandas.DataFrame(dict_chuf, columns=['name_puzzle', 'flatintvarschuf','flatintconstraintschuf','flattimechuf'])
 #df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/chuffeature.csv',index=False)
 
-df = pandas.DataFrame(dict_gurobi, columns=['name','pathsgurobi', 'flatintvarsgurobi','flatintconstraintsgurobi','flattimegurobi'])
+df = pandas.DataFrame(dict_gurobi, columns=['name_puzzle','flatintvarsgurobi','flatintconstraintsgurobi','flattimegurobi'])
 #df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/gurobifeature.csv',index=False)
 
-df = pandas.DataFrame(dict_cplex, columns=['name','pathscplex', 'flatintvarscplex','flatintconstraintscplex','flattimecplex'])
+#df = pandas.DataFrame(dict_cplex, columns=['name','pathscplex', 'flatintvarscplex','flatintconstraintscplex','flattimecplex'])
 #df[1:].to_csv('/home/raj/Music/SudokuSolvers/read_time/cplexfeature.csv',index=False)

@@ -10,6 +10,7 @@ import time
 DATA_BASEPATH = '/home/raj/Music/SudokuSolvers/Features/benchmark_puzzles'
 OUTPUT_BASEPATH = 'output'
 
+# 11 to 12 mins computaion time
 #Loads the puzzles from the dataset
 def load_path():
     for k in range(4,10,1):
@@ -62,19 +63,19 @@ def call_feature_computation_class(df_np , N,  j,k, i):
         row_empty = model.numberofrowsempty()
         column_complete = model.numberofcolumnsfilledcompletely()
         column_empty = model.numberofcolumnsempty()
-        sum_puzzle, sum_ratio_puzzle = model.totalsumofnumbersrr()
+        sum_range_puzzle, sum_ratio_puzzle = model.totalsumofnumbersrr()
         least_subgrid_sum = model.leastsubgridsum()
         highest_subgrid_sum = model.highestsubgridsum()
         least_highest_subgrid = model.leasthighestsubgrid()
-        least_max_subgrid = model.leastmaxsubgrid() 
+        least_max_subgrid = model.leastmaxsubgrid()
         highest_max_subgrid = model.highestmaxsubgrid()
         least_row_sum = model.leastrowsum()
         highest_row_sum = model.highestrowsum()
         least_highest_row = model.leasthighestrow()
         least_max_row = model.leastmaxrow()
         highest_max_row = model.highestmaxrow()
-        highest_column_sum = model.highestcolumnsum()        
-        least_column_sum = model.leastcolumnsum()        
+        highest_column_sum = model.highestcolumnsum()
+        least_column_sum = model.leastcolumnsum()
         least_highest_column = model.leasthighestcolumn()
         least_max_column = model.leastmaxcolumn()
         highest_max_column = model.highestmaxcolumn()
@@ -90,26 +91,26 @@ def call_feature_computation_class(df_np , N,  j,k, i):
         least_condition_for_solution = model.leastnumberforonesolution()
         least_condition_bin = model.leastconditionbinary()
         #r, ra = totalsumofnumbersrr()
-        multi_max_row = model.multiplymaxrow()
-        multi_max_column = model.multiplymaxcolumn()
-        multi_max_subgrid = model.multiplymaxsubgrid()
-        multi_min_row = model.multiplyminrow()
-        multi_min_column = model.multiplymincolumn()
-        multi_min_subgrid = model.multiplyminsubgrid()
-        range_mul_minmax_row = model.rangemultiplyminmaxrow()
-        range_mul_minmax_column = model.rangemultiplyminmaxcolumn()
-        range_mul_minmax_subgrid = model.rangemultiplyminmaxsubgrid()
+        #multi_max_row = model.multiplymaxrow()
+        #multi_max_column = model.multiplymaxcolumn()
+        #multi_max_subgrid = model.multiplymaxsubgrid()
+        #multi_min_row = model.multiplyminrow()
+        #multi_min_column = model.multiplymincolumn()
+        #multi_min_subgrid = model.multiplyminsubgrid()
+        #range_mul_minmax_row = model.rangemultiplyminmaxrow()
+        #range_mul_minmax_column = model.rangemultiplyminmaxcolumn()
+        #range_mul_minmax_subgrid = model.rangemultiplyminmaxsubgrid()
         multiply_size = model.multiplyof()
-        mul_sd_row = model.sdrowmultiply()
-        mul_sd_column = model.sdcolumnmultiply()
-        mul_sd_subgrid = model.sdsubgridmultiply()
-        mean_mul = model.meanofmul()        
+        #mul_sd_row = model.sdrowmultiply()
+        #mul_sd_column = model.sdcolumnmultiply()
+        #mul_sd_subgrid = model.sdsubgridmultiply()
+        mean_mul = model.meanofmul()
         mean_add = model.meanofadd()
         sd_row_add = model.sdrowaddition()
         sd_column_add = model.sdcolumnaddition()
         sd_subgrid_add = model.sdsubgridaddition()
-        max_occurence = model.maxofnumber()
-        min_occurence = model.minofnumber()
+        max_occurence, occ_max = model.maxofnumber()
+        min_occurence, occ_min = model.minofnumber()
         total_edges = model.totaledges()
         max_degree = model.maxdegree()
         num_nodes = model.numnodes()
@@ -180,26 +181,28 @@ def call_feature_computation_class(df_np , N,  j,k, i):
             'least_condition_for_solution': least_condition_for_solution,
             'least_condition_bin': least_condition_bin,
             'range_max_clique':range_max_clique,        
-            'multi_max_row':multi_max_row,
-            'multi_max_column':multi_max_column,
-            'multi_max_subgrid':multi_max_subgrid,
-            'multi_min_row': multi_min_row,
-            'multi_min_column': multi_min_column,
-            'multi_min_subgrid': multi_min_subgrid, 
-            'range_mul_minmax_row':range_mul_minmax_row, 
-            'range_mul_minmax_column':range_mul_minmax_column, 
-            'range_mul_minmax_subgrid':range_mul_minmax_subgrid,
+            #'multi_max_row':multi_max_row,
+            #'multi_max_column':multi_max_column,
+            #'multi_max_subgrid':multi_max_subgrid,
+            #'multi_min_row': multi_min_row,
+            #'multi_min_column': multi_min_column,
+            #'multi_min_subgrid': multi_min_subgrid, 
+            #'range_mul_minmax_row':range_mul_minmax_row, 
+            #'range_mul_minmax_column':range_mul_minmax_column, 
+            #'range_mul_minmax_subgrid':range_mul_minmax_subgrid,
             'multiply_size':multiply_size,
-            'mul_sd_row':mul_sd_row ,
-            'mul_sd_column':mul_sd_column,
-            'mul_sd_subgrid':mul_sd_subgrid, 
+            #'mul_sd_row':mul_sd_row ,
+            #'mul_sd_column':mul_sd_column,
+            #'mul_sd_subgrid':mul_sd_subgrid, 
             'mean_mul':mean_mul,       
             'mean_add':mean_add,
             'sd_row_add':sd_row_add,
             'sd_column_add':sd_column_add,
             'sd_subgrid_add':sd_subgrid_add, 
             'max_occurence':max_occurence,
+            'occ_max':occ_max,
             'min_occurence':min_occurence,
+            'occ_min':occ_min,
             'total_edges':total_edges,
             'max_degree':max_degree,
             'num_nodes':num_nodes, 
@@ -215,7 +218,7 @@ def call_feature_computation_class(df_np , N,  j,k, i):
         load_to_csv(df_add)
 
 def load_to_csv(df_add):
-    df_add.to_csv('featurescompleteheader4_9.csv', mode = 'a', header = False)
+    df_add.to_csv('featurescompleteheader4_9.csv', mode = 'a', header = True)
     #df_add.columns = columnnames()
 
     #print(df_add['iqr_puzzle'])
@@ -318,7 +321,9 @@ def columnnames():
             'sd_column_add',
             'sd_subgrid_add', 
             'max_occurence',
+            'occ_max',
             'min_occurence',
+            'occ_min',
             'total_edges',
             'max_degree',
             'num_nodes', 
