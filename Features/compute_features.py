@@ -1,17 +1,7 @@
 #!usr/var/python3
-import os
 import math
-import sys
 import numpy as np
-import matplotlib
-import pandas as pd 
 from scipy import stats
-import scipy
-from scipy.spatial import distance
-import statistics
-from statistics import stdev
-#import exact-cover as ec
-#import xudoku
 
 class feature_computations():
     """ This class computes features related to the 
