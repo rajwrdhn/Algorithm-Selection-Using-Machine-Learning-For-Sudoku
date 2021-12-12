@@ -7,8 +7,8 @@ class feature_computations():
     """ This class computes features related to the 
         partial sudoku board and its attributes corresponding 
         to the sudoku board. """
-    def __init__(self, df, size, name_l):
-        self.df = df
+    def __init__(self, df_np, size, name_l):
+        self.df_np = df_np
         self.size = size
         self.list_deepLearning: list = []
         self.name_ = name_l
@@ -34,7 +34,7 @@ class feature_computations():
         counter = 0
         for i in range(self.size):
             for j in range(self.size):
-                if (self.df[i][j] > 0):
+                if (self.df_np[i][j] > 0):
                     counter += 1 
         if (counter >0 ):
             per = counter * 100/ (self.size* self.size)
@@ -44,32 +44,32 @@ class feature_computations():
 
     # mean/average of puzzle w.r.t. sum 
     def meanofpuzzle(self):
-        a = np.mean(self.df)
+        a = np.mean(self.df_np)
         return a 
 
     # This is not required, mean has been done.
     def averageofpuzzle(self):
-        a = np.average(self.df)
+        a = np.average(self.df_np)
         return a 
 
     # Sum of all the numbers in the puzzle
     def sumofnumbers(self):
-        s = np.sum(self.df)
+        s = np.sum(self.df_np)
         return int(s)
 
     # not needed at the moment
     def percentilepuzzle(self):
-        p = np.percentile(self.df, 80)
+        p = np.percentile(self.df_np, 80)
         return p
     
     # Not used
     def calculate_points(self):
-        li = self.df.tolist()
+        li = self.df_np.tolist()
         return li
     
     # subgrids helper
     def getsubgrids(self):
-        d = self.df#.tolist()
+        d = self.df_np#.tolist()
         subgrids = []
         for box_i in range(self.order):
             for box_j in range(self.order):
@@ -162,7 +162,7 @@ class feature_computations():
 
     # smallest row size
     def sizeofsmallestrow(self):
-        p = self.df.tolist()
+        p = self.df_np.tolist()
         mina = self.size
         for x in p:
             xd = sum(i > 0 for i in x)
@@ -172,7 +172,7 @@ class feature_computations():
     
     # largest row size
     def sizeoflargestrow(self):
-        p = self.df.tolist()
+        p = self.df_np.tolist()
         maxa = 0
         for x in p:
             xd = sum(i > 0 for i in x)
@@ -210,7 +210,7 @@ class feature_computations():
     # standard deviation of row size to sample space 
     # i.e. Domain Size
     def sdsizerow(self):
-        p = self.df.tolist()
+        p = self.df_np.tolist()
         a = []
         for x in p:
             xd  = [i for i in x if i > 0]
@@ -221,7 +221,7 @@ class feature_computations():
     # size of the smallest column
     def sizeofsmallestcolumn(self):
         #do same like row after transpose
-        p = self.df.transpose().tolist()
+        p = self.df_np.transpose().tolist()
         mina = self.size
         for x in p:
             xd = sum(i > 0 for i in x)
@@ -232,7 +232,7 @@ class feature_computations():
     # largest column size
     def sizeoflargestcolumn(self):
         #do same like row after transpose
-        p = self.df.transpose().tolist()
+        p = self.df_np.transpose().tolist()
         maxa = 0
         for x in p:
             xd = sum(i > 0 for i in x)
@@ -261,7 +261,7 @@ class feature_computations():
     # standard deviation of column size to sample space 
     # i.e. Domain Size
     def sdsizecolumn(self):
-        p = self.df.transpose().tolist()
+        p = self.df_np.transpose().tolist()
         a = []
         for x in p:
             xd  = [i for i in x if i > 0]
@@ -271,7 +271,7 @@ class feature_computations():
     
     # Return True if all diagonals are filled 
     def diagonalmatrix(self):
-        d = self.df
+        d = self.df_np
         count = 0 
         for i in range(self.size):
             if (d[i][i] > 0):
@@ -281,7 +281,7 @@ class feature_computations():
     
     # Number of columns completely filled
     def numberofcolumnsfilledcompletely(self):
-        p = self.df.transpose().tolist()
+        p = self.df_np.transpose().tolist()
         count = 0
         for x in p:
             xd = [i for i in x if i > 0]
@@ -291,7 +291,7 @@ class feature_computations():
     
     # Number of rows completely filled
     def numberofrowsfilledcompletely(self):
-        p = self.df.tolist()
+        p = self.df_np.tolist()
         count = 0
         for x in p:
             xd = [i for i in x if i > 0]
@@ -302,7 +302,7 @@ class feature_computations():
     
     # number of empty rows
     def numberofrowsempty(self):
-        p = self.df.tolist()
+        p = self.df_np.tolist()
         count = 0
         for x in p:
             xd = [i for i in x if i == 0]
@@ -313,7 +313,7 @@ class feature_computations():
     
     # number of empty columns
     def numberofcolumnsempty(self):
-        p = self.df.transpose().tolist()
+        p = self.df_np.transpose().tolist()
         count = 0
         for x in p:
             xd = [i for i in x if i == 0]
@@ -324,7 +324,7 @@ class feature_computations():
     # sum of numbers on the sudoku board ratio and range
     #TODO in the main
     def totalsumofnumbersrr(self): #ratio and range from sum, sum and total sum
-        a = self.df.sum()
+        a = self.df_np.sum()
         su = 0
         for i in range(self.size):
             for j in range(1, (self.size +1)):
@@ -378,7 +378,7 @@ class feature_computations():
 
     # least sum of the row
     def leastrowsum(self):
-        a = self.df.tolist()
+        a = self.df_np.tolist()
         su = [] 
         for x in a:
             su.append(sum(x))
@@ -387,7 +387,7 @@ class feature_computations():
 
     # highest sum of the rows
     def highestrowsum(self):
-        a = self.df.tolist()
+        a = self.df_np.tolist()
         su = [] 
         for x in a:
             su.append(sum(x))
@@ -419,7 +419,7 @@ class feature_computations():
     
     # highest sum of columns
     def highestcolumnsum(self):        
-        a = self.df.transpose().tolist()
+        a = self.df_np.transpose().tolist()
         su = [] 
         for x in a:
             su.append(sum(x))
@@ -427,7 +427,7 @@ class feature_computations():
 
     # least column sum
     def leastcolumnsum(self):        
-        a = self.df.transpose().tolist()
+        a = self.df_np.transpose().tolist()
         su = [] 
         for x in a:
             su.append(sum(x))
@@ -461,7 +461,7 @@ class feature_computations():
 
     # max of multiplication of row
     def multiplymaxrow(self):
-        a = self.df.tolist()
+        a = self.df_np.tolist()
         m = []
         for x in a:
             m.append(self.listmul(x)) 
@@ -481,7 +481,7 @@ class feature_computations():
 
     # max of multiplication of column
     def multiplymaxcolumn(self):
-        a = self.df.transpose().tolist()
+        a = self.df_np.transpose().tolist()
         m = []
         for x in a:
             m.append(self.listmul(x)) 
@@ -497,7 +497,7 @@ class feature_computations():
     
     # min multiplication of row
     def multiplyminrow(self):
-        a = self.df.tolist()
+        a = self.df_np.tolist()
         m = []
         for x in a:
             m.append(self.listmul(x))
@@ -505,7 +505,7 @@ class feature_computations():
     
     # min multiplication of column
     def multiplymincolumn(self):
-        a = self.df.transpose().tolist()
+        a = self.df_np.transpose().tolist()
         m = []
         for x in a:
             m.append(self.listmul(x))  
@@ -536,7 +536,7 @@ class feature_computations():
 
     # store multiplication of each row as a list for sd
     def rowmultiplicationlist(self):
-        r = self.df.tolist() # row
+        r = self.df_np.tolist() # row
         mr = []
         for x in r:
             mr.append(self.listmul(x))
@@ -544,7 +544,7 @@ class feature_computations():
 
     # store multiplication of each column as a list for sd
     def columnmultiplicationlist(self):
-        c = self.df.transpose().tolist()        
+        c = self.df_np.transpose().tolist()        
         mc = []
         for x in c:
             mc.append(self.listmul(x))
@@ -589,7 +589,7 @@ class feature_computations():
     # is it okay to use it?
     #TODO: figure out wether to use it or not.
     def highestoccurrenceofnumber(self):
-        a = self.df
+        a = self.df_np
         s = a[a>0]
         #print(s.tolist())
         t = np.bincount(s)
@@ -600,7 +600,7 @@ class feature_computations():
     
     #TODO: only one is being presented, not 2, same above
     def lowestoccurrenceofnumber(self):
-        a = self.df
+        a = self.df_np
         s = a[a>0].tolist()
         if len(s):
             return int(min(s, key=s.count))
@@ -609,7 +609,7 @@ class feature_computations():
     # helper for least condition for one solution
     def leastnumberforonesolution(self):
         """Contains atleast one less from the domain set of size!"""
-        puzzle = self.df 
+        puzzle = self.df_np 
         a = np.unique(puzzle) 
         return len(a[a != 0])    
     
@@ -658,7 +658,7 @@ class feature_computations():
         
     #TODO: see helper below
     def calculateedgesnumber(self):
-        puzzle = self.df
+        puzzle = self.df_np
         count =0
         for i in range(self.size):
             for j in range(self.size):
@@ -671,11 +671,11 @@ class feature_computations():
     def helperforedges(self,i,j, count):
         #go through the entire row
         for k in range(self.size):
-            if (self.df[i][k] > 0):
+            if (self.df_np[i][k] > 0):
                 count +=1
         #go through the entire column
         for l in range(self.size):
-            if (self.df[l][j] > 0):
+            if (self.df_np[l][j] > 0):
                 count +=1
         #go through the entire subgrid
         return count 
@@ -686,7 +686,7 @@ class feature_computations():
         for i in range(self.size):
             for j in range(self.size):
                  
-                if (self.df[i][j] > 0):
+                if (self.df_np[i][j] > 0):
                     #insert 1 into the column as feature
                     self.list_deepLearning.append(1)
                 else: #insert 0 into the coilumn as feature
@@ -697,7 +697,7 @@ class feature_computations():
         self.list_deepLearning.append(self.name_)
         for i in range(self.size):
             for j in range(self.size):
-                self.list_deepLearning.append(self.df[i][j])
+                self.list_deepLearning.append(self.df_np[i][j])
         return self.list_deepLearning
     
     def meanofmul(self):
@@ -732,7 +732,7 @@ class feature_computations():
     
     # store addition of each row as a list for sd
     def rowadditionlist(self):
-        r = self.df.tolist() # row
+        r = self.df_np.tolist() # row
         mr = []
         for x in r:
             mr.append(self.listadd(x))
@@ -740,7 +740,7 @@ class feature_computations():
 
     # store addition of each column as a list for sd
     def columnadditionlist(self):
-        c = self.df.transpose().tolist()        
+        c = self.df_np.transpose().tolist()        
         mc = []
         for x in c:
             mc.append(self.listadd(x))
@@ -780,8 +780,8 @@ class feature_computations():
     # maximum frequency mode of the number present 
     # in the puzzle from the domain
     def maxofnumber(self):
-        #print(self.df[self.df>0])
-        a = self.df[self.df>0].tolist()
+        #print(self.df_np[self.df_np>0])
+        a = self.df_np[self.df_np>0].tolist()
         b = max(a,key=a.count)
         c = self.occurence(a,b)
         return int(b), int(c)
@@ -789,8 +789,8 @@ class feature_computations():
     # minimum frquency mode of the number present 
     # in the puzzle from the domain
     def minofnumber(self):
-        #print(self.df[self.df>0])
-        a = self.df[self.df>0].tolist()
+        #print(self.df_np[self.df_np>0])
+        a = self.df_np[self.df_np>0].tolist()
         b = min(a,key=a.count)
         c = self.occurence(a,b)
         return int(b), int(c)
@@ -822,7 +822,7 @@ class feature_computations():
         counter = 0
         for i in range(self.size):
             for j in range(self.size):
-                if (self.df[i][j] > 0):
+                if (self.df_np[i][j] > 0):
                     counter += 1 
         
         return int(counter)
@@ -832,7 +832,7 @@ class feature_computations():
         counter = 0
         for i in range(self.size):
             for j in range(self.size):
-                if (self.df[i][j] == 0):
+                if (self.df_np[i][j] == 0):
                     counter += 1
 
         return int(counter)
@@ -852,7 +852,7 @@ class feature_computations():
     # set cover yes or no 
     # when 0 then its not a cover
     def setcover(self):
-        a = np.unique(self.df)
+        a = np.unique(self.df_np)
         b = len(a) - 1
         if b == self.size:
             return 1
@@ -865,7 +865,7 @@ class feature_computations():
 
     # number of elements from the domain
     def numdomain(self):
-        a = np.unique(self.df)
+        a = np.unique(self.df_np)
         b = len(a) - 1
         return int(b)
     
@@ -876,7 +876,7 @@ class feature_computations():
         return int(a-b)
     
     def interquartilerangeforsudoku(self):
-        a = stats.iqr(self.df)
+        a = stats.iqr(self.df_np)
         return a
 
 if __name__ == "__main__":
